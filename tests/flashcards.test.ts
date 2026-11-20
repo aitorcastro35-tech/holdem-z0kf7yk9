@@ -48,6 +48,26 @@ describe('flashcard values (all computed by the engine)', () => {
     expect(val('combo-kq-blk')).toBe(9);
     expect(val('combo-jj-board')).toBe(1);
   });
+  it('chart quiz answers match the charts', async () => {
+    const { CHARTS, chartAction } = await import('../src/data/charts');
+    const quiz = deck.filter((c) => c.topic === 'charts');
+    expect(quiz.length).toBeGreaterThan(80);
+    for (const c of quiz) {
+      const [, , ...rest] = c.id.split('-');
+      const cls = rest[rest.length - 1];
+      const chart = CHARTS.find((ch) => c.id === `chart-${ch.id}-${cls}`)!;
+      expect(chart, c.id).toBeDefined();
+      const a = chartAction(chart, cls);
+      if (c.answer.type !== 'choice') throw new Error('choice expected');
+      const ans = c.answer.options[c.answer.correct];
+      expect(c.answer.correct).toBeGreaterThanOrEqual(0);
+      if (a === 'fold') expect(ans).toBe('Fold');
+      else expect(ans).not.toBe('Fold');
+    }
+  });
+  it('outs cards cover 13 out counts', () => {
+    expect(deck.filter((c) => c.id.startsWith('outs-fr-')).length).toBe(13);
+  });
   it('ids are unique', () => {
     expect(new Set(deck.map((c) => c.id)).size).toBe(deck.length);
   });

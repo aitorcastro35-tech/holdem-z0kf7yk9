@@ -28,6 +28,9 @@
   --act-3bet: #8a5cd6;
   --act-limp: #e0a13a;
   --act-fold: #2a343d;
+  /* chart series (validated: lightness band, CVD separation, contrast vs surface) */
+  --series-1: #35a47c;
+  --series-2: #4b8fd6;
   color-scheme: dark;
 }
 :root[data-theme="light"] {
@@ -46,6 +49,8 @@
   --bad: #c43d2e;
   --info: #2a6fb5;
   --act-fold: #dfe4e9;
+  --series-1: #1f8a63;
+  --series-2: #2a6fb5;
   color-scheme: light;
 }
 :root[data-deck="four"] {

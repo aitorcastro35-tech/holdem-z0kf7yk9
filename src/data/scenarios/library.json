@@ -2238,6 +2238,1857 @@
     "required": 0.3846,
     "villainCombos": 315
    }
+  },
+  {
+   "id": "B25-fd-overcard-vs-co-cbet",
+   "title": "Flush draw + overcard vs a ⅔-pot c-bet (in position)",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "AhJh",
+   "board": "9h6h2c",
+   "pot": 10.8,
+   "toCall": 4.3,
+   "effStack": 97.5,
+   "history": "CO opens 2.5bb, you call on the BTN (blinds fold). Flop: CO bets 4.3 (⅔ pot).",
+   "villain": {
+    "label": "CO betting top pair+ and draws, plus 40% of its air",
+    "parts": [
+     {
+      "range": "@6-rfi-CO",
+      "filter": "value-and-draws"
+     },
+     {
+      "range": "@6-rfi-CO",
+      "filter": "air",
+      "weight": 0.4
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A ⅔-pot bet asks for {required}.",
+    "A♥J♥ on 9♥6♥2♣ is the nut flush draw plus an overcard: {outs} flush outs ({byRiver} by the river). Against CO's betting range, which includes bluffs, you have {equity}.",
+    "That's strong enough to raise as a semi-bluff; calling in position is also good."
+   ],
+   "concepts": [
+    "outs",
+    "pot-odds",
+    "implied-odds",
+    "position"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.6597,
+    "required": 0.2848,
+    "outs": 9,
+    "villainCombos": 142.6
+   }
+  },
+  {
+   "id": "B26-tptk-vs-turn-overbet",
+   "title": "Top pair, top kicker vs a turn overbet",
+   "mode": "B",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "AsKd",
+   "board": "Kc8d4h2s",
+   "pot": 22.8,
+   "toCall": 13.7,
+   "effStack": 95.7,
+   "history": "BTN opens, you call in the BB. Flop: you check-call 1.8. Turn: you check, BTN overbets 13.7 (1.5× pot).",
+   "villain": {
+    "label": "Polar overbet: top pair or better plus 30% of no-pair hands",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "top-pair-plus"
+     },
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "air",
+      "weight": 0.3
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "An overbet of 1.5× pot asks for {required}.",
+    "Against a polarized range (strong hands + bluffs) your top pair, top kicker beats every bluff and every worse king: {equity}.",
+    "Call. Raising is a mistake against a polar range: the bluffs fold and only the hands that beat you continue."
+   ],
+   "concepts": [
+    "pot-odds",
+    "bluff-catch",
+    "polarized"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "noValueRaise": true,
+   "exploit": "Big turn overbets from passive low-stakes players are rarely bluffs — against them, even top pair top kicker can be a fold.",
+   "claims": {
+    "equity": 0.821,
+    "required": 0.3753,
+    "villainCombos": 127.6
+   }
+  },
+  {
+   "id": "B27-middle-pair-river-half",
+   "title": "Middle pair vs a half-pot river bet",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "9c8c",
+   "board": "Qd9h5s3c2h",
+   "pot": 34.1,
+   "toCall": 11.4,
+   "effStack": 88.9,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn: check-call 6.8. River: you check, BTN bets 11.4 (½ pot).",
+   "villain": {
+    "label": "BTN value-betting top pair or better plus 35% of no-pair hands",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "top-pair-plus"
+     },
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "air",
+      "weight": 0.35
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "Half pot: {required}.",
+    "Middle pair beats his missed draws and bluffs: {equity} vs the stated range.",
+    "Enough to call. Raising would turn your hand into a bluff."
+   ],
+   "concepts": [
+    "bluff-catch",
+    "pot-odds"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.393,
+    "required": 0.2505,
+    "villainCombos": 186.15
+   }
+  },
+  {
+   "id": "B28-overpair-4flush-river",
+   "title": "Overpair when the fourth heart hits",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "QsQd",
+   "board": "9h7h4h2cTh",
+   "pot": 45.4,
+   "toCall": 22.7,
+   "effStack": 88.9,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn: check-call 6.8. River T♥: you check, BTN bets pot (22.7).",
+   "villain": {
+    "label": "BTN betting two pair or better (incl. flushes) plus 30% of no-pair hands",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "two-pair-plus"
+     },
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "air",
+      "weight": 0.3
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call"
+   ],
+   "basis": "equity",
+   "why": [
+    "A pot-size bet asks for {required}.",
+    "With four hearts on board, QQ without a heart beats only his bluffs: {equity} vs the stated range.",
+    "Fold. Overpairs lose much of their value when the board gets this coordinated."
+   ],
+   "concepts": [
+    "bluff-catch",
+    "blockers",
+    "pot-odds"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.1523,
+    "required": 0.3333,
+    "villainCombos": 202.9
+   }
+  },
+  {
+   "id": "B29-set-vs-checkraise-ip",
+   "title": "Bottom set vs a check-raise",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "5s5c",
+   "board": "Kd9s5h",
+   "pot": 16.2,
+   "toCall": 5.3,
+   "effStack": 97.5,
+   "history": "CO opens, you call on the BTN. Flop: CO checks, you bet 2.2, CO check-raises to 7.5.",
+   "villain": {
+    "label": "CO check-raising two pair+, half its top pairs and half its draws",
+    "parts": [
+     {
+      "range": "@6-rfi-CO",
+      "filter": "two-pair-plus"
+     },
+     {
+      "range": "@6-rfi-CO",
+      "filter": "top-pair-plus",
+      "weight": 0.5
+     },
+     {
+      "range": "@6-rfi-CO",
+      "filter": "draws",
+      "weight": 0.5
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "Price: {required}.",
+    "Bottom set against a value-heavy check-raise: {equity}. You beat two pairs, top pairs and draws; only bigger sets beat you.",
+    "Re-raise for value and to charge the draws; calling is also fine."
+   ],
+   "concepts": [
+    "check-raise",
+    "equity",
+    "value-bet"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "betFacing": 7.5,
+   "claims": {
+    "equity": 0.8194,
+    "required": 0.2465,
+    "outs": 7,
+    "villainCombos": 42.5
+   }
+  },
+  {
+   "id": "B30-low-fd-vs-pot",
+   "title": "Low flush draw vs a pot-size bet",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "7h6h",
+   "board": "AhKh2c",
+   "pot": 11,
+   "toCall": 5.5,
+   "effStack": 97.5,
+   "history": "BTN opens, you call. Flop: you check, BTN bets pot (5.5).",
+   "villain": {
+    "label": "BTN betting top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A pot bet asks for {required}.",
+    "Your 7-high flush draw has {outs} outs, but they're not the nuts — a bigger flush can beat you when a heart comes: {equity}.",
+    "Within a point of the price: close. Reverse implied odds (losing a big pot to a higher flush) argue for folding; implied odds argue for calling."
+   ],
+   "concepts": [
+    "outs",
+    "pot-odds",
+    "reverse-implied"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.3361,
+    "required": 0.3333,
+    "outs": 9,
+    "villainCombos": 142
+   }
+  },
+  {
+   "id": "B31-ace-high-third-pot-river",
+   "title": "Ace-high vs a small river bet",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "AdTc",
+   "board": "Kh9h5c2d3s",
+   "pot": 12.1,
+   "toCall": 3,
+   "effStack": 95.7,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn: check, check. River: you check, BTN bets 3 (⅓ pot).",
+   "villain": {
+    "label": "BTN betting top pair or better plus half of its no-pair hands",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "top-pair-plus"
+     },
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "air",
+      "weight": 0.5
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A third-pot bet needs only {required}.",
+    "Ace-high beats his missed draws and bluffs: {equity} vs the stated range.",
+    "Small river bets require wide defence; ace-high is a reasonable bluff-catcher here."
+   ],
+   "concepts": [
+    "bluff-catch",
+    "mdf",
+    "pot-odds"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.3626,
+    "required": 0.1987,
+    "villainCombos": 196.5
+   }
+  },
+  {
+   "id": "B32-pair-gutshot-turn",
+   "title": "Second pair + gutshot vs a ⅔-pot turn bet",
+   "mode": "B",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "JhTc",
+   "board": "Jd8c3sQh",
+   "pot": 15.2,
+   "toCall": 6.1,
+   "effStack": 95.7,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn Q♥: you check, BTN bets 6.1 (⅔ pot).",
+   "villain": {
+    "label": "BTN betting top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "⅔ pot: {required}.",
+    "Second pair plus a gutshot ({outs} outs) has {equity} vs his betting range.",
+    "Slightly short of the price: a close spot. Folding is fine; calling is defensible with your outs."
+   ],
+   "concepts": [
+    "outs",
+    "pot-odds",
+    "equity"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.2633,
+    "required": 0.2864,
+    "outs": 4,
+    "villainCombos": 126
+   }
+  },
+  {
+   "id": "B33-busted-draw-river",
+   "title": "Missed flush draw facing a river bet",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "8h7h",
+   "board": "AhKh4c2sJd",
+   "pot": 34.1,
+   "toCall": 11.4,
+   "effStack": 88.9,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn: check-call 6.8. River: you check, BTN bets 11.4 (½ pot).",
+   "villain": {
+    "label": "BTN betting top pair or better plus 30% of no-pair hands",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "top-pair-plus"
+     },
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "air",
+      "weight": 0.3
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "You need {required}.",
+    "Eight-high with a missed flush draw beats almost nothing: {equity}.",
+    "Fold. (Turning it into a bluff-raise is rarely profitable at low stakes.)"
+   ],
+   "concepts": [
+    "pot-odds",
+    "bluff-catch"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.0278,
+    "required": 0.2505,
+    "villainCombos": 189.1
+   }
+  },
+  {
+   "id": "B34-oesd-vs-half-ip",
+   "title": "Open-ender vs a half-pot c-bet (in position)",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "9d8d",
+   "board": "7c6s2h",
+   "pot": 9.8,
+   "toCall": 3.3,
+   "effStack": 97.5,
+   "history": "CO opens, you call on the BTN. Flop: CO bets 3.3 (½ pot).",
+   "villain": {
+    "label": "CO betting top pair or better, draws, and 40% of air",
+    "parts": [
+     {
+      "range": "@6-rfi-CO",
+      "filter": "value-and-draws"
+     },
+     {
+      "range": "@6-rfi-CO",
+      "filter": "air",
+      "weight": 0.4
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "Half pot: {required}.",
+    "Open-ended straight draw: {outs} outs, {byRiver} by the river; {equity} vs his betting range.",
+    "A clear call in position; raising as a semi-bluff is also acceptable."
+   ],
+   "concepts": [
+    "outs",
+    "pot-odds",
+    "position",
+    "implied-odds"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.4216,
+    "required": 0.2519,
+    "outs": 8,
+    "villainCombos": 153.4
+   }
+  },
+  {
+   "id": "B35-boat-vs-river-overbet",
+   "title": "Sixes full vs a river overbet",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "6s6c",
+   "board": "6dKhKc9s3h",
+   "pot": 68.1,
+   "toCall": 45.4,
+   "effStack": 88.9,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn: check-call 6.8. River: you check, BTN bets 45.4 (2× pot).",
+   "villain": {
+    "label": "BTN overbetting two pair or better (trips, full houses) plus 20% of no-pair hands",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "two-pair-plus"
+     },
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "air",
+      "weight": 0.2
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A 2× pot overbet asks for {required}.",
+    "Sixes full beats trips and most two pairs; only nines full, kings full and quads beat you: {equity}.",
+    "Raise all-in for value — his trips call. Calling is also fine; folding would be a big mistake."
+   ],
+   "concepts": [
+    "pot-odds",
+    "value-bet",
+    "bluff-catch"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.9385,
+    "required": 0.4,
+    "villainCombos": 195
+   }
+  },
+  {
+   "id": "B36-overcards-small-cbet-ip",
+   "title": "Overcards vs a small c-bet in position",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "AcQd",
+   "board": "8s5d3h",
+   "pot": 8.7,
+   "toCall": 2.2,
+   "effStack": 97.5,
+   "history": "CO opens, you call on the BTN. Flop: CO bets 2.2 (⅓ pot).",
+   "villain": {
+    "label": "CO c-betting its whole opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-CO"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A third-pot c-bet needs only {required}.",
+    "Two overcards in position against a range that c-bets everything: {equity}.",
+    "Call (float). Small bets give wide ranges a very good price."
+   ],
+   "concepts": [
+    "pot-odds",
+    "mdf",
+    "position"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.5552,
+    "required": 0.2018,
+    "villainCombos": 291
+   }
+  },
+  {
+   "id": "B37-top-pair-vs-river-raise-small",
+   "title": "Top pair vs a river min-raise",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "KhQc",
+   "board": "Kd8s6c3h2h",
+   "pot": 31.7,
+   "toCall": 7.7,
+   "effStack": 85.7,
+   "history": "BTN open, BB call. You bet flop and turn small and got called; river: BB checks, you bet 7.7 into 16.3, BB raises to 15.4.",
+   "villain": {
+    "label": "Low-stakes river raise: two pair or better only",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "two-pair-plus"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call"
+   ],
+   "basis": "equity",
+   "why": [
+    "Even a min-raise asks for {required}.",
+    "Against a low-stakes river raise — two pair or better — top pair wins {equity}.",
+    "Fold. A good price doesn't help when you almost never win."
+   ],
+   "concepts": [
+    "check-raise",
+    "pot-odds"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "betFacing": 15.4,
+   "exploit": "River raises at low stakes are almost always value. This is one of the most reliable folds in live poker.",
+   "claims": {
+    "equity": 0,
+    "required": 0.1954,
+    "villainCombos": 35
+   }
+  },
+  {
+   "id": "B38-flush-vs-turn-shove",
+   "title": "Non-nut flush vs a turn shove",
+   "mode": "B",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "Jc9c",
+   "board": "Ac7c2dQc",
+   "pot": 101.9,
+   "toCall": 86.6,
+   "effStack": 86.6,
+   "history": "BTN opens, you call. Flop: check-call 4. Turn Q♣: you check, BTN shoves 86.6.",
+   "villain": {
+    "label": "BTN shoving two pair or better (incl. flushes) plus nut-flush-draw semi-bluffs",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "two-pair-plus"
+     },
+     {
+      "range": "AKo, AQo, AJo, ATo",
+      "filter": "draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call"
+   ],
+   "basis": "equity",
+   "why": [
+    "A turn shove asks for {required}.",
+    "Your jack-high flush beats sets, two pairs and one-club flush draws, but loses to bigger flushes: {equity}.",
+    "Call — you're well ahead of what he shoves."
+   ],
+   "concepts": [
+    "pot-odds",
+    "equity",
+    "reverse-implied"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.7631,
+    "required": 0.4594,
+    "villainCombos": 47
+   }
+  },
+  {
+   "id": "B39-gutshot-overs-small-turn",
+   "title": "Gutshot + overcards vs a small turn bet",
+   "mode": "B",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "KsQd",
+   "board": "Jh9c3d2s",
+   "pot": 13.6,
+   "toCall": 2.7,
+   "effStack": 95.3,
+   "history": "CO opens, you call on the BTN. Flop: CO bets 2.2, you call. Turn: CO bets 2.7 (¼ pot).",
+   "villain": {
+    "label": "CO betting top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-CO",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A quarter-pot bet needs {required}.",
+    "K-Q on J-9-3-2: a gutshot (any ten, {outs} outs) plus two overcards — {equity} vs his betting range.",
+    "Call: small bets give draws a good price — always compare equity to the price before folding a gutshot."
+   ],
+   "concepts": [
+    "outs",
+    "pot-odds",
+    "implied-odds"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.2881,
+    "required": 0.1656,
+    "outs": 4,
+    "villainCombos": 84
+   }
+  },
+  {
+   "id": "B40-two-pair-vs-flop-shove",
+   "title": "Two pair vs a flop shove",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "Th9h",
+   "board": "Ts9c4d",
+   "pot": 103,
+   "toCall": 97.5,
+   "effStack": 97.5,
+   "history": "BTN opens, you call. Flop: you check, BTN shoves 97.5.",
+   "villain": {
+    "label": "BTN shoving top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call"
+   ],
+   "basis": "equity",
+   "why": [
+    "A shove asks for {required}.",
+    "Top two pair against value hands and draws: {equity}.",
+    "Call — you're ahead of almost everything that shoves."
+   ],
+   "concepts": [
+    "pot-odds",
+    "equity"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.7257,
+    "required": 0.4863,
+    "outs": 4,
+    "villainCombos": 101
+   }
+  },
+  {
+   "id": "B41-bb-q8o-vs-btn",
+   "title": "Q8o in the big blind vs a button open",
+   "mode": "B",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "Qd8s",
+   "board": "",
+   "pot": 4,
+   "toCall": 1.5,
+   "effStack": 99,
+   "history": "BTN opens to 2.5bb, folded to you in the BB.",
+   "villain": {
+    "label": "BTN 6-max opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:10"
+   ],
+   "best": "call",
+   "ok": [
+    "raise:10"
+   ],
+   "basis": "chart",
+   "chart": "6-vs-BB-BTN",
+   "why": [
+    "Q8o is inside the big blind's defending range (Q8o+).",
+    "You only need {required} raw equity and have {equity} vs the button's range: call (the source also allows a 3-bet)."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "pot-odds",
+    "position"
+   ],
+   "sources": [
+    "pokerskillOpening",
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "Source chart, 6-max, ~100bb."
+   ],
+   "claims": {
+    "equity": 0.4234,
+    "required": 0.2727,
+    "villainCombos": 515
+   }
+  },
+  {
+   "id": "B42-bb-j5o-vs-btn",
+   "title": "J5o in the big blind vs a button open",
+   "mode": "B",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "Jc5h",
+   "board": "",
+   "pot": 4,
+   "toCall": 1.5,
+   "effStack": 99,
+   "history": "BTN opens to 2.5bb, folded to you in the BB.",
+   "villain": {
+    "label": "BTN 6-max opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:10"
+   ],
+   "best": "fold",
+   "ok": [],
+   "basis": "chart",
+   "chart": "6-vs-BB-BTN",
+   "why": [
+    "J5o is below the defending range (offsuit jacks start at J8o).",
+    "Raw equity ({equity}) is above the {required} price, but weak offsuit hands realize far less than that out of position — the chart folds it."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "pot-odds",
+    "position"
+   ],
+   "sources": [
+    "pokerskillOpening",
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "Source chart, 6-max, ~100bb."
+   ],
+   "claims": {
+    "equity": 0.3668,
+    "required": 0.2727,
+    "villainCombos": 525
+   }
+  },
+  {
+   "id": "B43-bb-63s-vs-btn",
+   "title": "63s in the big blind vs a button open",
+   "mode": "B",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "6s3s",
+   "board": "",
+   "pot": 4,
+   "toCall": 1.5,
+   "effStack": 99,
+   "history": "BTN opens to 2.5bb, folded to you in the BB.",
+   "villain": {
+    "label": "BTN 6-max opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:10"
+   ],
+   "best": "fold",
+   "ok": [],
+   "basis": "chart",
+   "chart": "6-vs-BB-BTN",
+   "why": [
+    "63s is just outside the defending range (64s+, 53s+).",
+    "Even with {equity} raw equity vs a {required} price, the chart folds the weakest suited gappers."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "pot-odds",
+    "position"
+   ],
+   "sources": [
+    "pokerskillOpening",
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "Source chart, 6-max, ~100bb."
+   ],
+   "claims": {
+    "equity": 0.3538,
+    "required": 0.2727,
+    "villainCombos": 545
+   }
+  },
+  {
+   "id": "B44-btn-a4s-vs-co",
+   "title": "A4s on the button vs a cutoff open",
+   "mode": "B",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "Ad4d",
+   "board": "",
+   "pot": 4,
+   "toCall": 2.5,
+   "effStack": 100,
+   "history": "CO opens to 2.5bb, folded to you in the BTN.",
+   "villain": {
+    "label": "CO 6-max opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-CO"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:7.5"
+   ],
+   "best": "raise:7.5",
+   "ok": [],
+   "basis": "chart",
+   "chart": "6-vs-BTN-CO",
+   "why": [
+    "A4s is a 3-bet in the source chart (A5s–A2s).",
+    "It blocks AA and AK and can make the nut flush or a wheel — a classic 3-bet bluff. Raw equity vs the CO range: {equity}."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "pot-odds",
+    "position"
+   ],
+   "sources": [
+    "pokerskillPreflop",
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "Source chart, 6-max, ~100bb."
+   ],
+   "claims": {
+    "equity": 0.4764,
+    "required": 0.3846,
+    "villainCombos": 331
+   }
+  },
+  {
+   "id": "B45-btn-k9s-vs-co",
+   "title": "K9s on the button vs a cutoff open",
+   "mode": "B",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "Kh9h",
+   "board": "",
+   "pot": 4,
+   "toCall": 2.5,
+   "effStack": 100,
+   "history": "CO opens to 2.5bb, folded to you in the BTN.",
+   "villain": {
+    "label": "CO 6-max opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-CO"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:7.5"
+   ],
+   "best": "call",
+   "ok": [],
+   "basis": "chart",
+   "chart": "6-vs-BTN-CO",
+   "why": [
+    "K9s is a flat call on the button vs a cutoff open.",
+    "Suited and in position: {equity} raw equity vs the CO range at a price of {required}."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "pot-odds",
+    "position"
+   ],
+   "sources": [
+    "pokerskillPreflop",
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "Source chart, 6-max, ~100bb."
+   ],
+   "claims": {
+    "equity": 0.4593,
+    "required": 0.3846,
+    "villainCombos": 330
+   }
+  },
+  {
+   "id": "B46-btn-q9o-vs-co",
+   "title": "Q9o on the button vs a cutoff open",
+   "mode": "B",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "Qc9d",
+   "board": "",
+   "pot": 4,
+   "toCall": 2.5,
+   "effStack": 100,
+   "history": "CO opens to 2.5bb, folded to you in the BTN.",
+   "villain": {
+    "label": "CO 6-max opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-CO"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:7.5"
+   ],
+   "best": "fold",
+   "ok": [],
+   "basis": "chart",
+   "chart": "6-vs-BTN-CO",
+   "why": [
+    "Q9o is a fold: the chart only continues with QJo among offsuit queens.",
+    "Its raw equity ({equity}) barely beats the {required} price, and it's often dominated by the hands that continue."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "pot-odds",
+    "position"
+   ],
+   "sources": [
+    "pokerskillPreflop",
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "Source chart, 6-max, ~100bb."
+   ],
+   "claims": {
+    "equity": 0.3926,
+    "required": 0.3846,
+    "villainCombos": 332
+   }
+  },
+  {
+   "id": "B47-btn-jj-vs-co",
+   "title": "JJ on the button vs a cutoff open",
+   "mode": "B",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "JsJh",
+   "board": "",
+   "pot": 4,
+   "toCall": 2.5,
+   "effStack": 100,
+   "history": "CO opens to 2.5bb, folded to you in the BTN.",
+   "villain": {
+    "label": "CO 6-max opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-CO"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:7.5"
+   ],
+   "best": "raise:7.5",
+   "ok": [],
+   "basis": "chart",
+   "chart": "6-vs-BTN-CO",
+   "why": [
+    "JJ is a value 3-bet vs a cutoff open (JJ+).",
+    "{equity} raw equity vs the CO range — build the pot while in position."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "pot-odds",
+    "position"
+   ],
+   "sources": [
+    "pokerskillPreflop",
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "Source chart, 6-max, ~100bb."
+   ],
+   "claims": {
+    "equity": 0.6761,
+    "required": 0.3846,
+    "villainCombos": 327
+   }
+  },
+  {
+   "id": "A19-a9o-co-fr",
+   "title": "A9o in the cutoff, full ring",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 9,
+   "heroPos": "CO",
+   "villainPos": "",
+   "hero": "Ac9h",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you in the CO (9-handed).",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "raise:2.5",
+   "ok": [
+    "raise:3"
+   ],
+   "basis": "chart",
+   "chart": "9-rfi-CO",
+   "why": [
+    "The full-ring cutoff range opens A8o+: A9o is an open.",
+    "Only the button and blinds are left; a decent ace steals well."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching chart, ~100bb, 2.5bb opens (3bb from the SB)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A20-k7s-hj-fr",
+   "title": "K7s in the hijack, full ring",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 9,
+   "heroPos": "HJ",
+   "villainPos": "",
+   "hero": "Kd7d",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you in the HJ (9-handed).",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "raise:2.5",
+   "ok": [
+    "raise:3"
+   ],
+   "basis": "chart",
+   "chart": "9-rfi-HJ",
+   "why": [
+    "The full-ring hijack opens K5s+: K7s is in.",
+    "Suited kings make flushes and steal well from late-middle position."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching chart, ~100bb, 2.5bb opens (3bb from the SB)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A21-44-hj-fr",
+   "title": "44 in the hijack, full ring",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 9,
+   "heroPos": "HJ",
+   "villainPos": "",
+   "hero": "4s4c",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you in the HJ (9-handed).",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "fold",
+   "ok": [],
+   "basis": "chart",
+   "chart": "9-rfi-HJ",
+   "why": [
+    "The full-ring hijack range starts pairs at 55+: 44 is a fold there (it opens from the cutoff).",
+    "Small pairs need cheap flops and implied odds; opening them with many players still behind is marginal."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching chart, ~100bb, 2.5bb opens (3bb from the SB)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A22-t9s-utg1-fr",
+   "title": "T9s from UTG+1, full ring",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 9,
+   "heroPos": "UTG+1",
+   "villainPos": "",
+   "hero": "Th9h",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you in the UTG+1 (9-handed).",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "raise:2.5",
+   "ok": [
+    "raise:3"
+   ],
+   "basis": "chart",
+   "chart": "9-rfi-UTG+1",
+   "why": [
+    "The full-ring UTG chart (used for UTG+1 at 9-handed) includes T9s.",
+    "Suited connectors play well in raised pots; the chart keeps T9s, not the lower ones."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching chart, ~100bb, 2.5bb opens (3bb from the SB)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A23-q9s-lj-fr",
+   "title": "Q9s from the lojack, full ring",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 9,
+   "heroPos": "LJ",
+   "villainPos": "",
+   "hero": "Qs9s",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you in the LJ (9-handed).",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "fold",
+   "ok": [],
+   "basis": "chart",
+   "chart": "9-rfi-LJ",
+   "why": [
+    "The full-ring lojack has QTs+ among suited queens: Q9s is a fold.",
+    "It becomes an open one seat later, in the hijack (Q9s+)."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching chart, ~100bb, 2.5bb opens (3bb from the SB)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A24-33-btn-fr",
+   "title": "33 on the button, full ring",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 9,
+   "heroPos": "BTN",
+   "villainPos": "",
+   "hero": "3d3h",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you in the BTN (9-handed).",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "raise:2.5",
+   "ok": [
+    "raise:3"
+   ],
+   "basis": "chart",
+   "chart": "9-rfi-BTN",
+   "why": [
+    "The full-ring button opens every pair (22+).",
+    "On the button you'll often take the blinds or flop a set in position."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching chart, ~100bb, 2.5bb opens (3bb from the SB)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A25-k8o-btn-6",
+   "title": "K8o on the button, 6-max",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "",
+   "hero": "Kh8c",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you in the BTN (6-max).",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "raise:2.5",
+   "ok": [
+    "raise:3"
+   ],
+   "basis": "chart",
+   "chart": "6-rfi-BTN",
+   "why": [
+    "The 6-max button range includes K8o+.",
+    "Late position with only the blinds behind: offsuit kings down to K8 are opens."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching chart, ~100bb, 2.5bb opens (3bb from the SB)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A26-j4s-btn-6",
+   "title": "J4s on the button, 6-max",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "",
+   "hero": "Jc4c",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you in the BTN (6-max).",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "raise:2.5",
+   "ok": [
+    "raise:3"
+   ],
+   "basis": "chart",
+   "chart": "6-rfi-BTN",
+   "why": [
+    "The 6-max button range includes J4s+.",
+    "Suited hands steal profitably from the button."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching chart, ~100bb, 2.5bb opens (3bb from the SB)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A27-a4o-co-6",
+   "title": "A4o in the cutoff, 6-max",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "CO",
+   "villainPos": "",
+   "hero": "As4d",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you in the CO (6-max).",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "fold",
+   "ok": [],
+   "basis": "chart",
+   "chart": "6-rfi-CO",
+   "why": [
+    "The 6-max cutoff opens A8o+ offsuit: A4o is a fold.",
+    "Weak offsuit aces are dominated by the hands that continue; on the button (A4o+) it becomes an open."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching chart, ~100bb, 2.5bb opens (3bb from the SB)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A28-96s-co-6",
+   "title": "96s in the cutoff, 6-max",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "CO",
+   "villainPos": "",
+   "hero": "9d6d",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you in the CO (6-max).",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "fold",
+   "ok": [],
+   "basis": "chart",
+   "chart": "6-rfi-CO",
+   "why": [
+    "The 6-max cutoff has 97s+ among suited nines: 96s is a fold.",
+    "It's an open on the button (96s+)."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching chart, ~100bb, 2.5bb opens (3bb from the SB)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A29-nfd-overcard-turn-barrel",
+   "title": "Turn barrel with the nut flush draw",
+   "mode": "A",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "AdQd",
+   "board": "9d6c2sKd",
+   "pot": 9.1,
+   "toCall": 0,
+   "effStack": 95.7,
+   "history": "You open the BTN, BB calls. Flop: BB checks, you bet 1.8, BB calls. Turn K♦: BB checks.",
+   "villain": {
+    "label": "BB's flop check-calling range: any pair or a draw",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "pair-plus"
+     },
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "draws"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:50",
+    "bet:75"
+   ],
+   "best": "bet:75",
+   "ok": [
+    "bet:50",
+    "check"
+   ],
+   "basis": "authored",
+   "why": [
+    "The K♦ gives you the nut flush draw plus an ace overcard: {outs} outs, {next} to hit on the river, and {equity} vs BB's range.",
+    "The king is also a card your range has more of than BB's (you open more Kx and he 3-bets some): a good card to keep betting.",
+    "Betting is a semi-bluff that wins now when he folds and still has big equity when called; checking is fine but gives up fold equity."
+   ],
+   "concepts": [
+    "fold-equity",
+    "outs",
+    "range-advantage"
+   ],
+   "sources": [
+    "wiki-semibluff",
+    "gtow-morph"
+   ],
+   "assumptions": [
+    "BB range as stated."
+   ],
+   "claims": {
+    "equity": 0.3273,
+    "outs": 9,
+    "villainCombos": 303
+   }
+  },
+  {
+   "id": "A30-two-pair-river-value",
+   "title": "Two pair on a blank river: bet big",
+   "mode": "A",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "Ks9s",
+   "board": "Kd9c4s7h2c",
+   "pot": 22.7,
+   "toCall": 0,
+   "effStack": 88.9,
+   "history": "You open the BTN, BB calls. Flop: BB checks, you bet 1.8, BB calls. Turn: BB checks, you bet 6.8, BB calls. River: BB checks.",
+   "villain": {
+    "label": "BB's range after calling two bets: any pair or better",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "pair-plus"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:50",
+    "bet:75",
+    "bet:100"
+   ],
+   "best": "bet:75",
+   "ok": [
+    "bet:50",
+    "bet:100"
+   ],
+   "basis": "authored",
+   "why": [
+    "Top two pair is far ahead of the hands that called twice ({equity}): kings with worse kickers, 9x, 7x, pocket pairs.",
+    "Bet big for value — those hands call; checking wins nothing more.",
+    "Only sets (77, 44, 22 and the last K-K / 9-9 combos) beat you — no straight or flush is possible on this board."
+   ],
+   "concepts": [
+    "value-bet"
+   ],
+   "sources": [
+    "sklansky"
+   ],
+   "assumptions": [
+    "BB range as stated."
+   ],
+   "claims": {
+    "equity": 0.95,
+    "villainCombos": 260
+   }
+  },
+  {
+   "id": "A31-top-set-dry-small",
+   "title": "Top set on a dry flop",
+   "mode": "A",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "QsQh",
+   "board": "Qd7c2s",
+   "pot": 5.5,
+   "toCall": 0,
+   "effStack": 97.5,
+   "history": "You open the BTN, BB calls. BB checks.",
+   "villain": {
+    "label": "BB's full defending range",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:75"
+   ],
+   "best": "bet:33",
+   "ok": [
+    "check",
+    "bet:75"
+   ],
+   "basis": "authored",
+   "why": [
+    "Top set is almost the nuts ({equity} vs BB's range) on a board with no flush or open straight draws.",
+    "A small bet keeps worse pairs (7x, small pocket pairs, Qx) in and builds the pot over three streets.",
+    "Checking to trap is reasonable on such a dry board, and a big bet works too — the main thing is not to scare everything away."
+   ],
+   "concepts": [
+    "value-bet",
+    "cbet",
+    "range-advantage"
+   ],
+   "sources": [
+    "gtow-cbet"
+   ],
+   "assumptions": [
+    "BB range: Poker Skill BB-vs-BTN defend range."
+   ],
+   "claims": {
+    "equity": 0.9765,
+    "outs": 7,
+    "villainCombos": 565
+   }
   }
  ]
 }

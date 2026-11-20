@@ -64,7 +64,7 @@ describe('scenario library', () => {
         expect(eq).not.toBeNull();
         expect(ls.best).toBeUndefined(); // graded by the engine at runtime
         const f = features(spot.hero, spot.board);
-        const g = gradeByEquity(eq!.equity, n.requiredEquity!, { options: spot.options, strongDraw: isStrongDraw(f, spot.board), street: spot.street });
+        const g = gradeByEquity(eq!.equity, n.requiredEquity!, { options: spot.options, strongDraw: isStrongDraw(f, spot.board), street: spot.street, noValueRaise: spot.noValueRaise });
         expect(g.best).toBeTruthy();
       } else if (ls.basis === 'chart') {
         const chart = CHARTS.find((c) => c.id === ls.chart)!;

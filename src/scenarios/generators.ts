@@ -11,7 +11,7 @@ import type { Option, Spot, VillainSpec } from './types';
 import { gradeByEquity, isStrongDraw, villainCombos, handFamily, CLOSE_MARGIN } from './compute';
 
 export type Rng = () => number;
-const pick = <T,>(rng: Rng, arr: T[]): T => arr[Math.floor(rng() * arr.length)];
+export const pick = <T,>(rng: Rng, arr: T[]): T => arr[Math.floor(rng() * arr.length)];
 const r1 = (x: number) => Math.round(x * 10) / 10;
 
 // ---------- boundary hands (for difficulty) ----------
@@ -200,23 +200,28 @@ const BET_FRACTIONS: [number, string][] = [
   [1, 'pot'],
 ];
 
-interface Context {
+export interface Context {
   heroPos: Position;
   villainPos: Position;
   ip: boolean;
   heroRange: string;
   villainRange: string;
   villainChartSource: string;
+  heroChartSource: string;
+  /** Pot on the flop after a 2.5bb open and a call (dead blinds included). */
+  flopPot: number;
 }
 
-function contexts(tableSize: TableSize): Context[] {
+export function contexts(tableSize: TableSize): Context[] {
   const btn = findChart('rfi', tableSize, 'BTN')!;
   const co = findChart('rfi', tableSize, 'CO')!;
   const bbDef = CHARTS.find((c) => c.id === '6-vs-BB-BTN')!;
   const btnVsCo = CHARTS.find((c) => c.id === '6-vs-BTN-CO')!;
   return [
-    { heroPos: 'BB', villainPos: 'BTN', ip: false, heroRange: bbDef.parts[0].range, villainRange: btn.parts[0].range, villainChartSource: btn.source },
-    { heroPos: 'BTN', villainPos: 'CO', ip: true, heroRange: btnVsCo.parts[1].range, villainRange: co.parts[0].range, villainChartSource: co.source },
+    // BB calls a BTN open: SB's 0.5 is dead → 2.5 + 2.5 + 0.5 = 5.5bb
+    { heroPos: 'BB', villainPos: 'BTN', ip: false, heroRange: bbDef.parts[0].range, villainRange: btn.parts[0].range, villainChartSource: btn.source, heroChartSource: bbDef.source, flopPot: 5.5 },
+    // BTN calls a CO open: both blinds dead → 2.5 + 2.5 + 0.5 + 1 = 6.5bb
+    { heroPos: 'BTN', villainPos: 'CO', ip: true, heroRange: btnVsCo.parts[1].range, villainRange: co.parts[0].range, villainChartSource: co.source, heroChartSource: btnVsCo.source, flopPot: 6.5 },
   ];
 }
 
@@ -250,7 +255,7 @@ export async function generateMathSpot(
     const f = features(hero, board);
     const [frac, fracLabel] = pick(rng, BET_FRACTIONS);
     // pot path: single-raised pot, 2.5bb open called → 5.5bb (SB's 0.5 dead); half-pot bets called on earlier streets
-    let pot = 5.5;
+    let pot = ctx.flopPot;
     let invested = 2.5;
     const lines: string[] = [`${ctx.villainPos} opens 2.5bb, you call in the ${ctx.heroPos}.`];
     const streetsBefore = (['flop', 'turn', 'river'] as const).slice(0, ['flop', 'turn', 'river'].indexOf(street));

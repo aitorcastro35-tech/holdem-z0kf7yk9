@@ -21,6 +21,8 @@ export interface VillainPart {
 export interface VillainSpec {
   label: string; // human description shown in "Assumptions"
   parts: VillainPart[];
+  /** Explicit weighted combos (used by full-hand mode, where weights come from the villain's betting history). */
+  combos?: { cards: [Card, Card]; weight: number }[];
 }
 
 export interface Spot {
@@ -50,6 +52,8 @@ export interface Spot {
   exploit?: string; // home-game note (practical advice, not math)
   tags: string[];
   chartId?: string;
+  /** Villain's range is polarized: raising only folds bluffs, so a big equity edge means call, not raise. */
+  noValueRaise?: boolean;
   /** Equity computed at generation time (math spots), so the UI doesn't recompute it. */
   precomputedEquity?: { equity: number; win: number; tie: number; exact: boolean; samples: number; combos: number; lose: number };
 }

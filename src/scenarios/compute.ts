@@ -12,6 +12,10 @@ import { resolveRange } from '../data/charts';
 
 /** Expand a villain spec into weighted combos on the spot's board, removing hero/board blockers. */
 export function villainCombos(v: VillainSpec, hero: Card[], board: Card[]): WeightedCombo[] {
+  if (v.combos) {
+    const dead = new Set([...hero, ...board]);
+    return v.combos.filter((c) => c.weight > 0 && !dead.has(c.cards[0]) && !dead.has(c.cards[1])).map((c) => ({ cards: c.cards, weight: c.weight, cls: '' }));
+  }
   const map = new Map<string, WeightedCombo>();
   for (const p of v.parts) {
     const w = p.weight ?? 1;
@@ -62,11 +66,15 @@ export const CLOSE_MARGIN = 0.03; // ±3 equity points counts as a close decisio
 /**
  * Equity-based grading for facing-a-bet decisions (Mode B math spots):
  *  - margin = equity − required equity.
- *  - margin ≥ +3pts: call is best (raise best instead when equity ≥ 60%); folding is a mistake.
+ *  - margin ≥ +3pts: call is best (raise best instead when equity ≥ 60%, unless the spot is flagged noValueRaise); folding is a mistake.
  *  - |margin| < 3pts: close — calling and folding are both acceptable.
  *  - margin ≤ −3pts: fold is best; calling is a mistake. A raise is acceptable as a semi-bluff only with a strong draw (≥ 8 outs) before the river.
  */
-export function gradeByEquity(eq: number, req: number, opts: { options: Option[]; strongDraw: boolean; street: Spot['street'] }): { grades: Record<string, Grade>; best: string } {
+export function gradeByEquity(
+  eq: number,
+  req: number,
+  opts: { options: Option[]; strongDraw: boolean; street: Spot['street']; noValueRaise?: boolean },
+): { grades: Record<string, Grade>; best: string } {
   const margin = eq - req;
   const grades: Record<string, Grade> = {};
   const raiseKeys = opts.options.filter((o) => o.kind === 'raise').map((o) => o.key);
@@ -76,7 +84,8 @@ export function gradeByEquity(eq: number, req: number, opts: { options: Option[]
   let best: string;
   if (margin >= CLOSE_MARGIN) {
     set('fold', 'mistake');
-    if (eq >= 0.6 && raiseKeys.length) {
+    // vs a polarized range a raise folds the bluffs and gets called only by better: no value raise
+    if (eq >= 0.6 && raiseKeys.length && !opts.noValueRaise) {
       raiseKeys.forEach((k) => set(k, 'best'));
       set('call', 'ok');
       best = raiseKeys[0];

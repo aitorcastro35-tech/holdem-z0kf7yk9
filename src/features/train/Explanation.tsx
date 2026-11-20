@@ -77,7 +77,9 @@ export function Explanation({ spot, numbers, chosen, grade }: { spot: Spot; numb
           Graded by:{' '}
           {spot.gradeBasis === 'chart'
             ? 'the cited preflop chart (a theory baseline)'
-            : spot.gradeBasis === 'equity'
+            : spot.gradeBasis === 'equity' && spot.toCall === 0
+              ? 'the value rule — bet when you beat more than half of the hands that call (equities vs the stated range)'
+              : spot.gradeBasis === 'equity'
               ? 'equity vs the stated villain range compared with the price (±3 points = close)'
               : 'standard theory for this spot (written rationale below)'}
         </div>

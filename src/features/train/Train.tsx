@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { HandSession, type SessionResult } from './HandSession';
+import { FullHandTrainer } from './FullHand';
 import { useProgress } from '../../store/progress';
 import type { Spot } from '../../scenarios/types';
 import { LIBRARY } from '../../scenarios/library';
@@ -53,6 +54,8 @@ export default function Train({ mode }: { mode?: string }) {
     [libFilter, run],
   );
 
+  if (mode === 'hand') return <FullHandTrainer />;
+
   if (mode === 'A' || mode === 'B' || mode === 'mixed' || mode === 'review' || mode === 'library') {
     if (done) return <Done r={done} again={() => { setDone(null); setRun(run + 1); }} />;
     if (mode === 'review') {
@@ -87,6 +90,10 @@ export default function Train({ mode }: { mode?: string }) {
   return (
     <div className="space-y-3">
       <Panel title="Train decisions">
+        <button onClick={() => go('train/hand')} className="mb-2 w-full rounded-2xl border-2 border-accent bg-surface-2 p-4 text-left hover:brightness-110">
+          <div className="text-lg font-semibold">🃏 Full hand — flop, turn, river</div>
+          <div className="text-sm text-muted">Play a whole hand against a betting villain: three decisions in a row, with your equity tracked street by street.</div>
+        </button>
         <div className="grid gap-2 sm:grid-cols-2">
           <button onClick={() => go('train/A')} className="rounded-2xl border border-line bg-surface-2 p-4 text-left hover:brightness-110">
             <div className="text-lg font-semibold">♠ Your move</div>

@@ -9,7 +9,19 @@ import { Button, cx } from '../../components/ui';
 const KEY_FOR: Record<OptKind, string> = { fold: 'F', check: 'C', call: 'C', bet: 'B', raise: 'R' };
 const KIND_ORDER: OptKind[] = ['fold', 'check', 'call', 'bet', 'raise'];
 
-export function SpotPlayer({ spot, onNext, progressLabel, review }: { spot: Spot; onNext: (grade: Grade) => void; progressLabel?: string; review?: boolean }) {
+export function SpotPlayer({
+  spot,
+  onNext,
+  progressLabel,
+  review,
+  nextLabel = 'Next hand',
+}: {
+  spot: Spot;
+  onNext: (grade: Grade, chosenKey: string) => void;
+  progressLabel?: string;
+  review?: boolean;
+  nextLabel?: string;
+}) {
   const [chosen, setChosen] = useState<string | null>(null);
   const [pendingKind, setPendingKind] = useState<OptKind | null>(null);
 
@@ -39,7 +51,8 @@ export function SpotPlayer({ spot, onNext, progressLabel, review }: { spot: Spot
       chosen: opt.label,
       best: spot.options.find((o) => o.key === spot.best)?.label,
       summary: `${spot.title ?? (spot.mode === 'A' ? 'Your move' : 'Facing action')} — ${spot.heroPos}, ${spot.street}`,
-      replay: g === 'mistake' && !review ? spot : undefined,
+      // full-hand spots carry large explicit ranges and can't be replayed out of context
+      replay: g === 'mistake' && !review && !spot.villain?.combos ? spot : undefined,
     });
   };
 
@@ -57,7 +70,7 @@ export function SpotPlayer({ spot, onNext, progressLabel, review }: { spot: Spot
       if (chosen) {
         if (key === ' ' || key === 'enter') {
           e.preventDefault();
-          onNext(grade!);
+          onNext(grade!, chosen);
         }
         return;
       }
@@ -125,8 +138,8 @@ export function SpotPlayer({ spot, onNext, progressLabel, review }: { spot: Spot
         <>
           <Explanation spot={spot} numbers={numbers} chosen={chosen} grade={grade} />
           <div className="sticky bottom-20 z-30 sm:bottom-4">
-            <Button variant="primary" className="w-full min-h-14 text-base shadow-xl" onClick={() => onNext(grade)}>
-              Next hand <span className="ml-1 hidden text-xs opacity-70 sm:inline">(Space)</span>
+            <Button variant="primary" className="w-full min-h-14 text-base shadow-xl" onClick={() => onNext(grade, chosen)}>
+              {nextLabel} <span className="ml-1 hidden text-xs opacity-70 sm:inline">(Space)</span>
               <span className="ml-2">{GRADE_UI[grade].icon}</span>
             </Button>
           </div>

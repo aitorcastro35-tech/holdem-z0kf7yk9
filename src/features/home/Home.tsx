@@ -86,6 +86,9 @@ export default function Home(_props: { mode?: string }) {
       )}
 
       <div className="grid gap-2 sm:grid-cols-2">
+        <Button variant="primary" className="sm:col-span-2" onClick={() => go('train/hand')}>
+          🃏 Play a full hand (flop → river)
+        </Button>
         <Button onClick={() => go('train/A')}>♠ Your move</Button>
         <Button onClick={() => go('train/B')}>♥ Facing action</Button>
         <Button onClick={() => go('flashcards')}>▤ Flashcards</Button>

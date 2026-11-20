@@ -1,0 +1,245 @@
+{
+ "method": "Exact: every one of the 1,712,304 boards enumerated with this app's evaluator (scripts/gen-matchups.ts).",
+ "matchups": [
+  {
+   "group": "Pair vs pair",
+   "a": "Ah As",
+   "b": "Kd Kc",
+   "note": "Overpair vs underpair: about 4 to 1.",
+   "win": 0.810646,
+   "tie": 0.003818,
+   "lose": 0.185536,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs pair",
+   "a": "Jh Js",
+   "b": "6d 6c",
+   "note": "Same shape with smaller pairs.",
+   "win": 0.801463,
+   "tie": 0.003066,
+   "lose": 0.195471,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs pair",
+   "a": "8h 8s",
+   "b": "2d 2c",
+   "note": "The underpair needs a set (or a straight/flush).",
+   "win": 0.804829,
+   "tie": 0.01004,
+   "lose": 0.185131,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs overcards (race)",
+   "a": "Qh Qs",
+   "b": "Ad Kc",
+   "note": "The classic \"coin flip\" — slightly better than a flip for the pair.",
+   "win": 0.569939,
+   "tie": 0.003419,
+   "lose": 0.426642,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs overcards (race)",
+   "a": "Qh Qs",
+   "b": "Ad Kd",
+   "note": "Suitedness adds about 3 points to AK.",
+   "win": 0.53589,
+   "tie": 0.003932,
+   "lose": 0.460179,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs overcards (race)",
+   "a": "2h 2s",
+   "b": "Ad Kc",
+   "note": "Even deuces are a small favourite vs AKo.",
+   "win": 0.527499,
+   "tie": 0.005809,
+   "lose": 0.466692,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs overcards (race)",
+   "a": "7h 7s",
+   "b": "Ad Qc",
+   "note": "Mid pair vs two overcards.",
+   "win": 0.547959,
+   "tie": 0.002965,
+   "lose": 0.449076,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs one overcard",
+   "a": "Th Ts",
+   "b": "Ad 5c",
+   "note": "One overcard: the pair is about 70%.",
+   "win": 0.701527,
+   "tie": 0.003108,
+   "lose": 0.295366,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs undercards",
+   "a": "Th Ts",
+   "b": "9d 8d",
+   "note": "Suited connectors vs an overpair.",
+   "win": 0.809272,
+   "tie": 0.00427,
+   "lose": 0.186458,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs undercards",
+   "a": "Ah As",
+   "b": "7d 6d",
+   "note": "Even AA is \"only\" ~77% vs suited connectors.",
+   "win": 0.768069,
+   "tie": 0.003211,
+   "lose": 0.228719,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs undercards",
+   "a": "9h 9s",
+   "b": "8d 7d",
+   "note": "",
+   "win": 0.80772,
+   "tie": 0.005837,
+   "lose": 0.186443,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs one card",
+   "a": "Kh Ks",
+   "b": "Ad Kc",
+   "note": "The pair dominates: AK needs an ace.",
+   "win": 0.696134,
+   "tie": 0.00789,
+   "lose": 0.295976,
+   "boards": 1712304
+  },
+  {
+   "group": "Pair vs one card",
+   "a": "Ah As",
+   "b": "Ad Kc",
+   "note": "AK wins only about 7%: pairing the king never helps, it needs a straight or a flush.",
+   "win": 0.919486,
+   "tie": 0.012526,
+   "lose": 0.067988,
+   "boards": 1712304
+  },
+  {
+   "group": "Domination",
+   "a": "Ah Kc",
+   "b": "Ad Qc",
+   "note": "Shared ace, better kicker: about 3 to 1 (many ties).",
+   "win": 0.723534,
+   "tie": 0.046794,
+   "lose": 0.229672,
+   "boards": 1712304
+  },
+  {
+   "group": "Domination",
+   "a": "Ah Kc",
+   "b": "Kd Qc",
+   "note": "Shared king.",
+   "win": 0.743032,
+   "tie": 0.011667,
+   "lose": 0.245301,
+   "boards": 1712304
+  },
+  {
+   "group": "Domination",
+   "a": "Ah Jc",
+   "b": "Ad 7c",
+   "note": "",
+   "win": 0.688446,
+   "tie": 0.079018,
+   "lose": 0.232536,
+   "boards": 1712304
+  },
+  {
+   "group": "Two overcards vs two undercards",
+   "a": "Ah Kc",
+   "b": "8d 7d",
+   "note": "Big cards vs suited connectors: ~58/42.",
+   "win": 0.579116,
+   "tie": 0.003769,
+   "lose": 0.417115,
+   "boards": 1712304
+  },
+  {
+   "group": "Two overcards vs two undercards",
+   "a": "Ah Kc",
+   "b": "3d 2c",
+   "note": "",
+   "win": 0.656819,
+   "tie": 0.005777,
+   "lose": 0.337404,
+   "boards": 1712304
+  },
+  {
+   "group": "Two overcards vs two undercards",
+   "a": "Kh Qc",
+   "b": "9d 7c",
+   "note": "",
+   "win": 0.643206,
+   "tie": 0.006353,
+   "lose": 0.350441,
+   "boards": 1712304
+  },
+  {
+   "group": "Overlapping / mixed",
+   "a": "Ah Jc",
+   "b": "Kd Qd",
+   "note": "One high card each — closer than it looks.",
+   "win": 0.556175,
+   "tie": 0.004417,
+   "lose": 0.439407,
+   "boards": 1712304
+  },
+  {
+   "group": "Overlapping / mixed",
+   "a": "Ah 5h",
+   "b": "Kd Qc",
+   "note": "Ace-rag suited vs KQ offsuit.",
+   "win": 0.603832,
+   "tie": 0.004518,
+   "lose": 0.391649,
+   "boards": 1712304
+  },
+  {
+   "group": "Overlapping / mixed",
+   "a": "Jh Th",
+   "b": "Ad Kc",
+   "note": "Suited connectors vs AK.",
+   "win": 0.409684,
+   "tie": 0.004229,
+   "lose": 0.586087,
+   "boards": 1712304
+  },
+  {
+   "group": "Premium vs trash",
+   "a": "Ah As",
+   "b": "7d 2c",
+   "note": "The \"worst hand\" still wins 12%.",
+   "win": 0.872403,
+   "tie": 0.003642,
+   "lose": 0.123955,
+   "boards": 1712304
+  },
+  {
+   "group": "Premium vs trash",
+   "a": "Ah Kc",
+   "b": "3d 2c",
+   "note": "",
+   "win": 0.656819,
+   "tie": 0.005777,
+   "lose": 0.337404,
+   "boards": 1712304
+  }
+ ]
+}

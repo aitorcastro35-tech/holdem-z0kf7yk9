@@ -29,6 +29,7 @@ export interface LibSpot {
   basis: 'authored' | 'equity' | 'chart';
   chart?: string;
   impliedOdds?: boolean;
+  noValueRaise?: boolean;
   why: string[];
   concepts: string[];
   sources: string[];
@@ -104,6 +105,7 @@ export function toSpot(s: LibSpot): Spot {
     exploit: s.exploit,
     tags: [s.street, s.mode === 'B' ? 'facing-bet' : 'your-move', handFamily(hero), ...s.concepts],
     chartId: s.chart,
+    noValueRaise: s.noValueRaise,
   };
 }
 

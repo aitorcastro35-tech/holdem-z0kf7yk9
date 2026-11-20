@@ -8,6 +8,7 @@ import type { Spot } from '../../scenarios/types';
 import { LIBRARY } from '../../scenarios/library';
 import { generateRfiSpot, generateVsOpenSpot, generateMathSpot, newRng, type Rng } from '../../scenarios/generators';
 import { villainCombos, gradeByEquity, isStrongDraw, staticNumbers } from '../../scenarios/compute';
+import { generateCheckedToSpot } from '../../scenarios/fullhand';
 
 const rng: Rng = newRng();
 
@@ -22,7 +23,7 @@ export async function finalizeSpot(spot: Spot): Promise<Spot> {
   if (spot.gradeBasis === 'equity') {
     const req = staticNumbers(spot).requiredEquity!;
     const f = features(spot.hero, spot.board);
-    const g = gradeByEquity(eq.equity, req, { options: spot.options, strongDraw: isStrongDraw(f, spot.board), street: spot.street });
+    const g = gradeByEquity(eq.equity, req, { options: spot.options, strongDraw: isStrongDraw(f, spot.board), street: spot.street, noValueRaise: spot.noValueRaise });
     s = { ...s, grades: g.grades, best: g.best };
   }
   return s;
@@ -50,7 +51,12 @@ export async function nextSpot(mode: SessionMode, settings: Settings, focus: str
   const preflopWeak = focus.includes('preflop-ranges');
   const postFocus = focus.filter((c) => c !== 'preflop-ranges' && c !== 'position');
   let spot: Spot;
-  if (m === 'A') spot = r < (preflopWeak ? 0.75 : 0.55) ? generateRfiSpot(rng, settings) : pickLibrary('A', postFocus);
+  if (m === 'A') {
+    const pRfi = preflopWeak ? 0.6 : 0.4;
+    if (r < pRfi) spot = generateRfiSpot(rng, settings);
+    else if (r < pRfi + 0.35) spot = await generateCheckedToSpot(rng, settings, (hero, combos, board) => computeEquity({ hero, board, villainCombos: combos }));
+    else spot = pickLibrary('A', postFocus);
+  }
   else if (r < (preflopWeak ? 0.45 : 0.3)) spot = generateVsOpenSpot(rng, settings);
   else if (r < (postFocus.length ? 0.55 : 0.7)) spot = await generateMathSpot(rng, settings, workerEquity);
   else spot = pickLibrary('B', postFocus);

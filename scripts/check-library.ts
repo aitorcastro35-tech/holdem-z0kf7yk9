@@ -19,7 +19,7 @@ for (const ls of LIBRARY_RAW) {
   let verdict = '';
   if (ls.basis === 'equity' && eq && n.requiredEquity !== undefined) {
     const f = s.board.length ? features(s.hero, s.board) : null;
-    verdict = gradeByEquity(eq.equity, n.requiredEquity, { options: s.options, strongDraw: !!f && isStrongDraw(f, s.board), street: s.street }).best;
+    verdict = gradeByEquity(eq.equity, n.requiredEquity, { options: s.options, strongDraw: !!f && isStrongDraw(f, s.board), street: s.street, noValueRaise: s.noValueRaise }).best;
   }
   console.log(ls.id.padEnd(34), 'eq', claims.equity ?? '-', eq ? (eq.exact ? 'exact' : 'MC') : '', 'req', claims.required ?? '-', 'outs', claims.outs ?? '-', 'combos', claims.villainCombos ?? '-', verdict ? '→ ' + verdict : ls.best ? 'best ' + ls.best : '');
   const target = json.spots.find((x: { id: string }) => x.id === ls.id);

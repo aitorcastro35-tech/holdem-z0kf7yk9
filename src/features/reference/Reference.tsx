@@ -3,6 +3,7 @@ import { PreflopGrid } from './PreflopGrid';
 import { OddsTables } from './OddsTables';
 import { Concepts } from './Concepts';
 import { Tools } from './Tools';
+import { Matchups } from './Matchups';
 import { Chip } from '../../components/ui';
 import { go } from '../../router';
 
@@ -10,6 +11,7 @@ const TABS = [
   ['grid', 'Preflop charts'],
   ['rankings', 'Hand rankings'],
   ['odds', 'Odds tables'],
+  ['matchups', 'Matchups'],
   ['concepts', 'Concepts'],
   ['tools', 'Calculators'],
 ] as const;
@@ -28,6 +30,7 @@ export function Reference({ tab, focus }: { tab?: string; focus?: string }) {
       {t === 'grid' && <PreflopGrid />}
       {t === 'rankings' && <HandRankings />}
       {t === 'odds' && <OddsTables />}
+      {t === 'matchups' && <Matchups />}
       {t === 'concepts' && <Concepts focus={focus} />}
       {t === 'tools' && <Tools />}
     </div>

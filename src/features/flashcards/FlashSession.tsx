@@ -92,7 +92,7 @@ export function FlashSession({ cards, onDone, title }: { cards: Flashcard[]; onD
           {title ?? 'Flashcards'} · {i + 1}/{cards.length} · {TOPIC_LABEL[card.topic]}
         </span>
       }
-      right={<KindBadge kind="math" />}
+      right={<KindBadge kind={card.topic === 'charts' ? 'theory' : 'math'} />}
     >
       <div className="h-1.5 w-full overflow-hidden rounded bg-surface-2">
         <div className="h-full bg-accent transition-all" style={{ width: `${(i / cards.length) * 100}%` }} />

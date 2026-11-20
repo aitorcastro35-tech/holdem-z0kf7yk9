@@ -3,14 +3,17 @@ import { flopToRiver, flopToTurn, turnToRiver, requiredEquityForPotFraction, mdf
 import { facts } from '../../engine/probabilities';
 import { parseRange, rangeComboCount } from '../../engine/range';
 import { parseCards, mulberry32, shuffle } from '../../engine/cards';
+import { gridLabel } from '../../engine/range';
+import { CHARTS, SOURCES, chartAction, type Action } from '../../data/charts';
 
-export type Topic = 'outs' | 'price' | 'combos' | 'preflop' | 'concepts';
+export type Topic = 'outs' | 'price' | 'combos' | 'preflop' | 'concepts' | 'charts';
 export const TOPIC_LABEL: Record<Topic, string> = {
   outs: 'Outs → %',
   price: 'Pot odds & MDF',
   combos: 'Combos',
   preflop: 'Preflop & flop odds',
   concepts: 'Number → concept',
+  charts: 'Preflop chart quiz',
 };
 
 export type Answer =
@@ -31,6 +34,11 @@ const P = (x: number) => x * 100;
 const f2 = (x: number) => x.toFixed(2);
 
 const DRAW_NAMES: Record<number, string> = {
+  3: 'one overcard you hope to pair',
+  7: 'a flopped set hoping to fill up — 6 cards pair the board, 1 makes quads',
+  10: 'a 10-out draw',
+  11: 'an 11-out draw',
+  14: 'a 14-out combo draw',
   2: 'a pocket pair hoping to hit a set',
   4: 'a gutshot straight draw',
   5: 'one pair hoping for two pair or trips',
@@ -54,7 +62,7 @@ const SIZES: [number, string][] = [
 export function buildDeck(): Flashcard[] {
   const cards: Flashcard[] = [];
   // ---- outs → % ----
-  for (const n of [2, 4, 5, 6, 8, 9, 12, 15]) {
+  for (const n of [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15]) {
     const name = DRAW_NAMES[n];
     cards.push({
       id: `outs-fr-${n}`,
@@ -140,6 +148,13 @@ export function buildDeck(): Flashcard[] {
   combo('set-77', 'Board 7♠ 9♦ 2♣. How many combos of a set of sevens (77) can villain have?', '77', '7s 9d 2c', 'Three sevens left: C(3,2) = 3.');
   combo('kq-blk', 'You hold K♥ Q♥. How many KQ combos can villain have?', 'KQ', 'Kh Qh', '3 kings × 3 queens = 9.');
   combo('jj-board', 'Board J♠ J♦ 5♣. How many JJ combos are left?', 'JJ', 'Js Jd 5c', 'Two jacks left: 1 combo.');
+  combo('kk-1k', 'A king is on the board. How many KK combos remain?', 'KK', 'Kd 8c 3s', 'C(3,2) = 3.');
+  combo('jts-j', 'The J♠ is on the board. How many JTs combos remain?', 'JTs', 'Js 6d 2c', 'Spades JTs is blocked: 3 left.');
+  combo('sets-k72', 'Board K♠ 7♦ 2♣. How many set combos (KK, 77, 22) are possible in total?', 'KK, 77, 22', 'Ks 7d 2c', '3 ranks × C(3,2) = 3 × 3 = 9.');
+  combo('aq-hold-a', 'You hold A♣ T♦. How many AQ combos can villain have?', 'AQ', 'Ac Td', '3 aces × 4 queens = 12.');
+  combo('two-pair-k7', 'Board K♠ 7♦ 2♣. How many K7 combos (top two pair) are possible?', 'K7', 'Ks 7d 2c', '3 kings × 3 sevens = 9.');
+  combo('pairs-all', 'How many combos of all 13 pocket pairs together?', '22+', '', '13 × 6 = 78.');
+  combo('suited-aces', 'How many combos of suited aces (A2s–AKs)?', 'A2s+', '', '12 hands × 4 = 48.');
   cards.push({
     id: 'combo-classes',
     topic: 'combos',
@@ -179,7 +194,51 @@ export function buildDeck(): Flashcard[] {
   mc('118', `${f2(P(set.p))}% is the chance of…`, ['A pocket pair flopping a set or better', 'Being dealt a pocket pair', 'Flopping a flush draw with suited cards', 'Hitting a gutshot by the river'], 0, `1 − C(48,3)/C(50,3) = ${f2(P(set.p))}%.`, 'set-mining');
   mc('mdf-def', 'Which formula gives the minimum defense frequency vs a bet B into pot P?', ['P / (P + B)', 'B / (P + 2B)', 'B / (P + B)', '(P + B) / B'], 0, 'B/(P+2B) is the caller\'s required equity; B/(P+B) is bluff break-even (alpha).', 'mdf');
   mc('req-def', 'Which formula gives the equity needed to call a bet B into pot P?', ['B / (P + 2B)', 'P / (P + B)', 'B / (P + B)', 'B / P'], 0, 'You risk B to win P + B; the final pot is P + 2B.', 'pot-odds');
+  cards.push(...chartCards());
   return cards;
+}
+
+/** Chart quiz: for each cited chart, ask about the hands at the edge of the range (neighbours of a different action). */
+function chartCards(): Flashcard[] {
+  const out: Flashcard[] = [];
+  const ACTION_TXT: Record<Action, string> = { raise: 'Open (raise)', threebet: '3-bet', call: 'Call', limp: 'Limp', fold: 'Fold' };
+  for (const chart of CHARTS) {
+    const edge: string[] = [];
+    for (let r = 0; r < 13; r++)
+      for (let c = 0; c < 13; c++) {
+        const cls = gridLabel(r, c);
+        const a = chartAction(chart, cls);
+        const nb = [[r - 1, c], [r + 1, c], [r, c - 1], [r, c + 1]].filter(([x, y]) => x >= 0 && x < 13 && y >= 0 && y < 13);
+        if (nb.some(([x, y]) => chartAction(chart, gridLabel(x, y)) !== a)) edge.push(cls);
+      }
+    // spread the picks across the edge (deterministic)
+    const n = Math.min(8, edge.length);
+    const picks = Array.from({ length: n }, (_, i) => edge[Math.floor((i * edge.length) / n)]);
+    const mixed = chart.mixedActions;
+    const options: string[] =
+      chart.kind === 'rfi'
+        ? mixed
+          ? ['Raise or complete', 'Fold']
+          : ['Open (raise)', 'Fold']
+        : mixed
+          ? ['Defend (call or 3-bet)', 'Fold']
+          : ['3-bet', 'Call', 'Fold'];
+    const table = chart.tableSize === 6 ? '6-max' : 'Full ring';
+    for (const cls of picks) {
+      const a = chartAction(chart, cls);
+      const label = a === 'fold' ? 'Fold' : mixed ? options[0] : ACTION_TXT[a];
+      const where = chart.kind === 'rfi' ? `${table}, folded to you in the ${chart.hero}` : `${table}, ${chart.villain} opens and it's folded to you in the ${chart.hero}`;
+      out.push({
+        id: `chart-${chart.id}-${cls}`,
+        topic: 'charts',
+        prompt: `${where}. You hold ${cls}. What does the chart do?`,
+        answer: { type: 'choice', options, correct: options.indexOf(label) },
+        explain: `${chart.title}: ${cls} is ${a === 'fold' ? 'not in the range — fold' : `in the ${mixed ? 'continuing' : ACTION_TXT[a].toLowerCase()} range`}. Source: ${SOURCES[chart.source].name}.`,
+        concept: 'preflop-ranges',
+      });
+    }
+  }
+  return out;
 }
 
 /** Plausible distractors for a percent question (for multiple-choice mode). Deterministic per card. */
