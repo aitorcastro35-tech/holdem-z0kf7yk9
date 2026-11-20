@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* Dark is the default theme; light is opt-in via data-theme="light". */
+:root {
+  --bg: #0f1418;
+  --surface: #182027;
+  --surface-2: #212b34;
+  --border: #2e3a45;
+  --fg: #e8edf1;
+  --muted: #93a1ad;
+  --accent: #3fb68b;
+  --accent-fg: #06130e;
+  --felt: #12402f;
+  --felt-edge: #0b2a1f;
+  --good: #3fb68b;
+  --ok: #e0b341;
+  --bad: #e5604f;
+  --info: #5aa2e6;
+  --card-bg: #f7f7f2;
+  /* card suit colours */
+  --suit-s: #1d1d1f;
+  --suit-h: #d0312d;
+  --suit-d: #d0312d;
+  --suit-c: #1d1d1f;
+  /* chart action colours */
+  --act-raise: #d9534f;
+  --act-call: #3fa36b;
+  --act-3bet: #8a5cd6;
+  --act-limp: #e0a13a;
+  --act-fold: #2a343d;
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --surface-2: #eef1f4;
+  --border: #d5dbe1;
+  --fg: #16202a;
+  --muted: #5d6b78;
+  --accent: #1f8a63;
+  --accent-fg: #ffffff;
+  --felt: #1d6b4c;
+  --felt-edge: #15513a;
+  --good: #1f8a63;
+  --ok: #b58300;
+  --bad: #c43d2e;
+  --info: #2a6fb5;
+  --act-fold: #dfe4e9;
+  color-scheme: light;
+}
+:root[data-deck="four"] {
+  --suit-d: #2563eb;
+  --suit-c: #15803d;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-good: var(--good);
+  --color-ok: var(--ok);
+  --color-bad: var(--bad);
+  --color-info: var(--info);
+  --color-felt: var(--felt);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  margin: 0;
+  min-height: 100dvh;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+details > summary {
+  cursor: pointer;
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}

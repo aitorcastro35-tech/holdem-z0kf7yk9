@@ -1,0 +1,2243 @@
+{
+ "about": "Hand-authored classic spots. Every number shown to the user is recomputed by the engine from these inputs; 'claims' store the engine's values and tests/library.test.ts fails if they drift. Text placeholders: {equity} {required} {outs} {clean} {next} {byRiver} {combos} {ev} {spr} {alpha:NN} {mdf}. Range strings starting with @ reference a chart in src/data/charts.ts (optionally :action).",
+ "spots": [
+  {
+   "id": "A01-cbet-dry-k72",
+   "title": "C-bet on a dry king-high board",
+   "mode": "A",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "AdTd",
+   "board": "Ks7c2h",
+   "pot": 5.5,
+   "toCall": 0,
+   "effStack": 97.5,
+   "history": "You open 2.5bb on the BTN, BB calls. BB checks.",
+   "villain": {
+    "label": "BB's full defending range vs a BTN open",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:50",
+    "bet:75",
+    "bet:100"
+   ],
+   "best": "bet:33",
+   "ok": [
+    "check",
+    "bet:50"
+   ],
+   "basis": "authored",
+   "why": [
+    "K-7-2 rainbow favours the preflop raiser: you hold more strong kings, while the BB's calling range is full of weak, unconnected hands.",
+    "With a range advantage on a static board, bet small and often. A 33% bet only has to work {alpha:33} of the time as a pure bluff.",
+    "Your A-high has {equity} equity vs BB's whole range: it can win at showdown, but a small bet folds out better hands like small pairs."
+   ],
+   "concepts": [
+    "cbet",
+    "range-advantage",
+    "alpha"
+   ],
+   "sources": [
+    "gtow-cbet",
+    "gtow-morph",
+    "pokerskillOpening"
+   ],
+   "assumptions": [
+    "6-max, 100bb. BB defends the Poker Skill BB-vs-BTN range (no 3-bets modelled)."
+   ],
+   "exploit": "Against players who call c-bets with any pair, give up more often with pure air and bet your value hands bigger.",
+   "claims": {
+    "equity": 0.4827,
+    "villainCombos": 544
+   }
+  },
+  {
+   "id": "A02-check-wet-986",
+   "title": "Wet, connected board that hits the caller",
+   "mode": "A",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "AsKd",
+   "board": "9h8h6c",
+   "pot": 5.5,
+   "toCall": 0,
+   "effStack": 97.5,
+   "history": "You open 2.5bb on the BTN, BB calls. BB checks.",
+   "villain": {
+    "label": "BB's full defending range vs a BTN open",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:75",
+    "bet:100"
+   ],
+   "best": "check",
+   "ok": [
+    "bet:33"
+   ],
+   "basis": "authored",
+   "why": [
+    "9-8-6 two-tone connects with the BB's suited connectors, gappers and small pairs: the range advantage shifts toward the caller.",
+    "AK has no pair and no draw here ({equity} vs BB's range). Betting big folds the hands you beat and gets called or raised by the hands that beat you.",
+    "Checking keeps the pot small and realizes your overcard equity for free."
+   ],
+   "concepts": [
+    "range-advantage",
+    "cbet",
+    "equity"
+   ],
+   "sources": [
+    "gtow-morph",
+    "gtow-cbet"
+   ],
+   "assumptions": [
+    "6-max, 100bb. BB defends the Poker Skill BB-vs-BTN range."
+   ],
+   "exploit": "Loose home-game callers rarely fold on boards like this — c-bet bluffs here are especially poor.",
+   "claims": {
+    "equity": 0.4177,
+    "villainCombos": 524
+   }
+  },
+  {
+   "id": "A03-set-wet-board",
+   "title": "Set on a draw-heavy board",
+   "mode": "A",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "8s8d",
+   "board": "9h8h4c",
+   "pot": 5.5,
+   "toCall": 0,
+   "effStack": 97.5,
+   "history": "You open 2.5bb on the BTN, BB calls. BB checks.",
+   "villain": {
+    "label": "BB's continuing range: top pair or better plus flush/straight draws",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:50",
+    "bet:75",
+    "bet:100"
+   ],
+   "best": "bet:75",
+   "ok": [
+    "bet:50",
+    "bet:100"
+   ],
+   "basis": "authored",
+   "why": [
+    "You have the second-best possible hand and many worse hands continue: 9x, flush draws, straight draws, pair + draw.",
+    "Against that continuing range you have {equity} equity. Draws have real equity against you, so charge them now (protection) and build the pot (value).",
+    "Slow-playing on a wet board gives free cards to exactly the hands that can outdraw you."
+   ],
+   "concepts": [
+    "value-bet",
+    "equity",
+    "outs"
+   ],
+   "sources": [
+    "gtow-cbet"
+   ],
+   "assumptions": [
+    "6-max, 100bb. Equity measured vs BB hands that would call a bet: top pair or better, flush draws and open-enders."
+   ],
+   "exploit": "Home-game players love to call with draws and any pair — size up rather than down.",
+   "claims": {
+    "equity": 0.8392,
+    "outs": 7,
+    "villainCombos": 179
+   }
+  },
+  {
+   "id": "A04-overpair-low-dry",
+   "title": "Overpair on a low, dry board",
+   "mode": "A",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "CO",
+   "villainPos": "BTN",
+   "hero": "QsQc",
+   "board": "8d5c2h",
+   "pot": 5.5,
+   "toCall": 0,
+   "effStack": 97.5,
+   "history": "You open 2.5bb in the CO, BTN calls, blinds fold. You act first.",
+   "villain": {
+    "label": "BTN's flat-calling range vs a CO open",
+    "parts": [
+     {
+      "range": "@6-vs-BTN-CO:call"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:50",
+    "bet:75"
+   ],
+   "best": "bet:50",
+   "ok": [
+    "bet:33",
+    "bet:75"
+   ],
+   "basis": "authored",
+   "why": [
+    "QQ is way ahead of the button's calling range ({equity}): mostly overcards, smaller pairs and suited connectors.",
+    "Bet for value: many pairs (22–TT, 8x, 5x) and overcards with backdoors will call a medium bet.",
+    "Checking out of position invites a free card for two overcards that have about six outs against you."
+   ],
+   "concepts": [
+    "value-bet",
+    "position"
+   ],
+   "sources": [
+    "pokerskillPreflop",
+    "gtow-cbet"
+   ],
+   "assumptions": [
+    "6-max, 100bb. BTN's calling range from Poker Skill's BTN-vs-CO chart (its 3-bet hands removed)."
+   ],
+   "claims": {
+    "equity": 0.8171,
+    "villainCombos": 147
+   }
+  },
+  {
+   "id": "A05-thin-value-river",
+   "title": "Thin value on the river",
+   "mode": "A",
+   "street": "river",
+   "tableSize": 9,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "KhJc",
+   "board": "Kd9s5c3h2d",
+   "pot": 9.1,
+   "toCall": 0,
+   "effStack": 95.7,
+   "history": "You open 2.5bb on the BTN, BB calls. Flop: BB checks, you bet 1.8, BB calls. Turn: check, check. River: BB checks.",
+   "villain": {
+    "label": "BB's check-calling range: any pair using a hole card",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "pair-plus"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:50",
+    "bet:100"
+   ],
+   "best": "bet:33",
+   "ok": [
+    "bet:50",
+    "check"
+   ],
+   "basis": "authored",
+   "why": [
+    "Top pair, jack kicker is ahead of most of the hands that called the flop and checked twice ({equity} vs that range): K8–K2, 9x, 5x, pocket pairs.",
+    "A small bet gets called by many of those worse hands; a big bet only gets called by kings with better kickers and two pairs.",
+    "Thin value = betting when you are only modestly ahead of the calling range."
+   ],
+   "concepts": [
+    "value-bet",
+    "polarized"
+   ],
+   "sources": [
+    "sklansky"
+   ],
+   "assumptions": [
+    "Full ring line, 100bb. BB's range: Poker Skill BB defend range filtered to any pair using a hole card (missed draws assumed to have folded or will fold).",
+    "The BB defend range comes from a 6-max chart, used as an approximation at a full table."
+   ],
+   "exploit": "Against calling stations, bet bigger for value with top pair — they call with any piece. Against tight players, a check is fine.",
+   "claims": {
+    "equity": 0.7273,
+    "villainCombos": 286
+   }
+  },
+  {
+   "id": "A06-nut-flush-river",
+   "title": "River nut flush: get paid",
+   "mode": "A",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "Ah5h",
+   "board": "Kh9h4c7s2h",
+   "pot": 22.7,
+   "toCall": 0,
+   "effStack": 88.9,
+   "history": "BTN open, BB call. Flop: BB checks, you bet 1.8, BB calls. Turn: BB checks, you bet 6.8, BB calls. River: BB checks.",
+   "villain": {
+    "label": "BB's range after calling two bets: any pair or better",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "pair-plus"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:50",
+    "bet:75",
+    "bet:100"
+   ],
+   "best": "bet:75",
+   "ok": [
+    "bet:50",
+    "bet:100"
+   ],
+   "basis": "authored",
+   "why": [
+    "You have the nut flush ({equity} vs BB's calling range — only a straight flush beats you).",
+    "Bet big: kings, two pairs, sets and smaller flushes can call. Checking wins nothing extra.",
+    "When you hold the nuts and the opponent's range is capped, bigger sizes make more money from the hands that do call."
+   ],
+   "concepts": [
+    "value-bet",
+    "polarized"
+   ],
+   "sources": [
+    "gtow-morph"
+   ],
+   "assumptions": [
+    "6-max, 100bb, BB's range filtered to pair or better."
+   ],
+   "exploit": "In home games, people rarely fold a flush or two pair on the river. Don't be afraid of a pot-size bet.",
+   "claims": {
+    "equity": 1,
+    "villainCombos": 313
+   }
+  },
+  {
+   "id": "A07-ace-high-check-back",
+   "title": "Ace-high with showdown value",
+   "mode": "A",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "AdJc",
+   "board": "Ks8h4h3c6s",
+   "pot": 9.1,
+   "toCall": 0,
+   "effStack": 95.7,
+   "history": "BTN open, BB call. Flop: you c-bet 1.8, BB calls. Turn: check, check. River: BB checks.",
+   "villain": {
+    "label": "BB's check-call then check-check range: pairs plus missed heart draws",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "pair-plus"
+     },
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "air",
+      "weight": 0.5
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:75"
+   ],
+   "best": "check",
+   "ok": [
+    "bet:33"
+   ],
+   "basis": "authored",
+   "why": [
+    "Ace-high beats missed draws (Q-J, J-T, 5-x hearts) that would fold to a bet anyway.",
+    "Hands that call a bet — any pair — all beat you. Betting turns a hand with showdown value into a bluff.",
+    "Checking wins whenever villain has a missed draw: here {equity} of the time vs the stated range."
+   ],
+   "concepts": [
+    "value-bet",
+    "bluff-catch"
+   ],
+   "sources": [
+    "sklansky"
+   ],
+   "assumptions": [
+    "Villain's range: pair or better, plus half of their no-pair hands (missed draws)."
+   ],
+   "claims": {
+    "equity": 0.2372,
+    "villainCombos": 401.5
+   }
+  },
+  {
+   "id": "A08-turn-value-tptk",
+   "title": "Top pair, top kicker on a blank turn",
+   "mode": "A",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "AsKc",
+   "board": "Kd7h2c5s",
+   "pot": 9.1,
+   "toCall": 0,
+   "effStack": 95.7,
+   "history": "BTN open, BB call. Flop: BB checks, you bet 1.8, BB calls. Turn: BB checks.",
+   "villain": {
+    "label": "BB's flop check-calling range: any pair or a draw",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "pair-plus"
+     },
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "draws"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:50",
+    "bet:75"
+   ],
+   "best": "bet:75",
+   "ok": [
+    "bet:50",
+    "bet:33",
+    "check"
+   ],
+   "basis": "authored",
+   "why": [
+    "AK is ahead of nearly everything that called the flop ({equity}): weaker kings, 7x, pocket pairs.",
+    "The 5 changes little. Bet again for value — worse kings and pairs still call; giving a free card helps gutshots and overcards.",
+    "Checking is not a disaster (pot control), but it loses value against a range full of worse pairs."
+   ],
+   "concepts": [
+    "value-bet",
+    "equity"
+   ],
+   "sources": [
+    "gtow-cbet"
+   ],
+   "assumptions": [
+    "BB's range: pairs using a hole card plus open-enders/flush draws from the defend range."
+   ],
+   "claims": {
+    "equity": 0.805,
+    "villainCombos": 233
+   }
+  },
+  {
+   "id": "A09-pot-control-middle-pair",
+   "title": "Middle pair in position: pot control",
+   "mode": "A",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "9h8h",
+   "board": "Jc8d3s2h",
+   "pot": 9.1,
+   "toCall": 0,
+   "effStack": 95.7,
+   "history": "BTN open, BB call. Flop: BB checks, you bet 1.8, BB calls. Turn: BB checks.",
+   "villain": {
+    "label": "BB's flop check-calling range: any pair or a draw",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "pair-plus"
+     },
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "draws"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:75",
+    "bet:100"
+   ],
+   "best": "check",
+   "ok": [
+    "bet:33"
+   ],
+   "basis": "authored",
+   "why": [
+    "Second pair has {equity} vs the hands that called the flop: you beat draws and weaker pairs, lose to every jack.",
+    "If you bet big, better hands call and worse hands fold — a classic reason to check.",
+    "Checking in position realizes your equity and keeps the pot manageable."
+   ],
+   "concepts": [
+    "position",
+    "value-bet"
+   ],
+   "sources": [
+    "sklansky"
+   ],
+   "assumptions": [
+    "BB range as stated; one more street to come."
+   ],
+   "claims": {
+    "equity": 0.3981,
+    "villainCombos": 241
+   }
+  },
+  {
+   "id": "A10-bb-dont-donk",
+   "title": "Top pair in the BB: let the raiser bet",
+   "mode": "A",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "KsTd",
+   "board": "Kh7c2d",
+   "pot": 5.5,
+   "toCall": 0,
+   "effStack": 97.5,
+   "history": "BTN opens 2.5bb, you call in the BB. You act first on the flop.",
+   "villain": {
+    "label": "BTN's opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:75"
+   ],
+   "best": "check",
+   "ok": [
+    "bet:33"
+   ],
+   "basis": "authored",
+   "why": [
+    "On K-7-2 the button has the range advantage and will c-bet very often, including many worse hands.",
+    "Your top pair has {equity} vs the button's opening range: you're happy to check and let them bluff, then call or check-raise.",
+    "Leading into the preflop raiser on boards that favour them is rarely better than checking."
+   ],
+   "concepts": [
+    "range-advantage",
+    "cbet",
+    "check-raise"
+   ],
+   "sources": [
+    "gtow-morph"
+   ],
+   "assumptions": [
+    "6-max, 100bb. BTN range = PokerCoaching 6-max BTN RFI chart."
+   ],
+   "claims": {
+    "equity": 0.832,
+    "villainCombos": 459
+   }
+  },
+  {
+   "id": "A11-multiway-cbet",
+   "title": "C-bet into two opponents",
+   "mode": "A",
+   "street": "flop",
+   "tableSize": 9,
+   "heroPos": "CO",
+   "villainPos": "BTN+BB",
+   "hero": "KdQc",
+   "board": "Ah9s6s",
+   "pot": 8,
+   "toCall": 0,
+   "effStack": 97.5,
+   "history": "You open 2.5bb in the CO, BTN and BB call. BB checks to you; BTN is still to act behind.",
+   "villain": {
+    "label": "BTN's calling range (one of the two opponents)",
+    "parts": [
+     {
+      "range": "@6-vs-BTN-CO:call"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:75"
+   ],
+   "best": "check",
+   "ok": [
+    "bet:33"
+   ],
+   "basis": "authored",
+   "why": [
+    "A bluff needs every opponent to fold. Even if each folds 60% independently, both fold only 0.6 × 0.6 = 36% of the time.",
+    "K-high with no draw has {equity} vs even one caller's range — little equity when called.",
+    "Multiway, bet your strong hands and good draws; check most air."
+   ],
+   "concepts": [
+    "fold-equity",
+    "alpha",
+    "cbet"
+   ],
+   "sources": [
+    "gtow-cbet"
+   ],
+   "assumptions": [
+    "Full ring, 100bb. Equity shown vs one opponent's range (BTN flat range) — vs two players it is lower.",
+    "The BTN calling range comes from a 6-max chart (no verified free full-ring vs-open chart), used as an approximation."
+   ],
+   "exploit": "Multiway pots in home games are where c-bet bluffs go to die. Bluff even less than theory suggests.",
+   "claims": {
+    "equity": 0.3267,
+    "villainCombos": 141
+   }
+  },
+  {
+   "id": "A12-turn-combo-draw-semibluff",
+   "title": "Combo draw on the turn: semi-bluff",
+   "mode": "A",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "Qh9h",
+   "board": "JhTc4h2s",
+   "pot": 9.1,
+   "toCall": 0,
+   "effStack": 95.7,
+   "history": "BTN open, BB call. Flop: BB checks, you bet 1.8, BB calls. Turn: BB checks.",
+   "villain": {
+    "label": "BB's flop check-calling range: any pair or a draw",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "pair-plus"
+     },
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "draws"
+     }
+    ]
+   },
+   "options": [
+    "check",
+    "bet:33",
+    "bet:50",
+    "bet:75"
+   ],
+   "best": "bet:75",
+   "ok": [
+    "bet:50",
+    "check"
+   ],
+   "basis": "authored",
+   "why": [
+    "You have {outs} outs to a straight or flush ({next} to hit on the river) and {equity} equity vs BB's range.",
+    "Betting wins immediately when they fold, and you still have a big draw when called: a semi-bluff.",
+    "Checking is acceptable (a free look), but it gives up your fold equity."
+   ],
+   "concepts": [
+    "fold-equity",
+    "outs"
+   ],
+   "sources": [
+    "wiki-semibluff",
+    "sklansky"
+   ],
+   "assumptions": [
+    "BB's range: any pair or a strong draw after calling the flop."
+   ],
+   "claims": {
+    "equity": 0.4267,
+    "outs": 15,
+    "villainCombos": 293
+   }
+  },
+  {
+   "id": "A13-kjo-utg-full-ring",
+   "title": "KJo under the gun at a full table",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 9,
+   "heroPos": "UTG",
+   "villainPos": "",
+   "hero": "KcJd",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "You are first to act at a 9-handed table. Blinds 0.5/1.",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "fold",
+   "ok": [],
+   "basis": "chart",
+   "chart": "9-rfi-UTG",
+   "why": [
+    "The full-ring UTG chart opens only KQo among offsuit king hands. KJo is a fold.",
+    "Eight players act behind you; KJo is often dominated by the AK, AJ and KQ that continue.",
+    "Limping is not part of a sound strategy: it invites raises and leaves you out of position in a bloated pot."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "reverse-implied",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching full-ring chart (8-handed source; UTG chart used for 9-handed UTG)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A14-66-utg-full-ring",
+   "title": "Small pair under the gun, full ring",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 9,
+   "heroPos": "UTG",
+   "villainPos": "",
+   "hero": "6s6h",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "First to act at a 9-handed table.",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "fold",
+   "ok": [],
+   "basis": "chart",
+   "chart": "9-rfi-UTG",
+   "why": [
+    "The source's full-ring UTG range starts at 77+: 66 is a fold there (it opens from LJ onward).",
+    "Small pairs mostly win by flopping a set (11.8% of flops) and need deep stacks and few opponents behind.",
+    "In 6-max the same seat opens 66+ — table size matters."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "set-mining"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching full-ring chart (8-handed source)."
+   ],
+   "exploit": "If your home game is very passive (few 3-bets, many limpers), opening or limping small pairs early is less costly — but it is not the baseline.",
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A15-76s-btn",
+   "title": "Suited connector on the button",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "",
+   "hero": "7h6h",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you on the button.",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3",
+    "raise:4"
+   ],
+   "best": "raise:2.5",
+   "ok": [
+    "raise:3",
+    "raise:4"
+   ],
+   "basis": "chart",
+   "chart": "6-rfi-BTN",
+   "why": [
+    "76s is inside the 6-max button range (75s+). Raise.",
+    "Only the blinds are left and you'll have position: suited connectors play well and steal the blinds often."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching 6-max chart, 2.5bb opens."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A16-k4o-sb",
+   "title": "K4o first in from the small blind",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "SB",
+   "villainPos": "",
+   "hero": "Kc4d",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 0.5,
+   "effStack": 100,
+   "history": "Folded to you in the small blind.",
+   "options": [
+    "fold",
+    "call",
+    "raise:3",
+    "raise:4"
+   ],
+   "best": "raise:3",
+   "ok": [
+    "call",
+    "raise:4",
+    "raise:3"
+   ],
+   "basis": "chart",
+   "chart": "6-rfi-SB",
+   "why": [
+    "K4o is at the bottom of the source's SB range (K4o+), which says 'raise or call'.",
+    "Only the big blind remains; a king-high hand has enough equity to attack one random hand.",
+    "Folding gives up a spot the chart plays."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching 6-max SB chart ('Raise or Call'); which hands raise vs complete is not given in the free text."
+   ],
+   "claims": {
+    "required": 0.25
+   }
+  },
+  {
+   "id": "A17-q8o-btn",
+   "title": "Q8o on the button",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "",
+   "hero": "Qd8c",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "Folded to you on the button.",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "fold",
+   "ok": [],
+   "basis": "chart",
+   "chart": "6-rfi-BTN",
+   "why": [
+    "The button range includes Q9o+ but not Q8o: a fold, even on the button.",
+    "Weak offsuit queens make second-best pairs and dominated hands far too often."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "reverse-implied"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching 6-max chart."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "A18-a5s-utg-6max",
+   "title": "A5s under the gun, 6-max",
+   "mode": "A",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "UTG",
+   "villainPos": "",
+   "hero": "As5s",
+   "board": "",
+   "pot": 1.5,
+   "toCall": 1,
+   "effStack": 100,
+   "history": "First to act at a 6-handed table.",
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5",
+    "raise:3"
+   ],
+   "best": "raise:2.5",
+   "ok": [
+    "raise:3"
+   ],
+   "basis": "chart",
+   "chart": "6-rfi-UTG",
+   "why": [
+    "The 6-max UTG range includes A3s+, so A5s is an open.",
+    "Suited wheel aces make nut flushes and straights and block AA/AK in the hands that play back."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "blockers"
+   ],
+   "sources": [
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "PokerCoaching 6-max chart (its first seat is labelled LJ; used as UTG at 6-handed)."
+   ],
+   "claims": {
+    "required": 0.4
+   }
+  },
+  {
+   "id": "B01-tpwk-vs-checkraise",
+   "title": "Top pair, weak kicker vs a check-raise (good price)",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "Kc5c",
+   "board": "Kd8h4s",
+   "pot": 13.3,
+   "toCall": 4.2,
+   "betFacing": 6,
+   "effStack": 95.7,
+   "history": "You open the BTN, BB calls. Flop: BB checks, you bet 1.8, BB check-raises to 6.",
+   "villain": {
+    "label": "Value-heavy low-stakes check-raise range: two pair or better, strong kings at half frequency, gutshot bluffs",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "two-pair-plus"
+     },
+     {
+      "range": "KQ, KJ",
+      "weight": 0.5
+     },
+     {
+      "range": "76s, 75s, 65s, 63s, 53s"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "You call 4.2 to win 13.3: you need only {required} equity.",
+    "Against this value-heavy range you have {equity}: you're crushed by two pairs and sets, behind KQ/KJ, but well ahead of the gutshot bluffs.",
+    "The small raise gives a great price, so even a weak top pair continues once. Re-evaluate on the turn: further big bets from this range mean value."
+   ],
+   "concepts": [
+    "pot-odds",
+    "equity",
+    "check-raise",
+    "reverse-implied"
+   ],
+   "sources": [
+    "wiki-potodds",
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated (an assumption about a typical low-stakes player). No further betting assumed."
+   ],
+   "exploit": "If this player never check-raises as a bluff (only two pair or better), your equity collapses and folding becomes right — that is the read that changes the decision.",
+   "claims": {
+    "equity": 0.4194,
+    "required": 0.24,
+    "villainCombos": 39
+   }
+  },
+  {
+   "id": "B02-set-vs-shove-fd-board",
+   "title": "Set on a flush-draw board vs a shove",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "7s7d",
+   "board": "7h5h2c",
+   "pot": 104.8,
+   "toCall": 95.7,
+   "effStack": 95.7,
+   "history": "You open the BTN, BB calls. Flop: BB checks, you bet 1.8, BB shoves all-in for 97.5.",
+   "villain": {
+    "label": "BB shoving top pair or better and all flush/straight draws",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call"
+   ],
+   "basis": "equity",
+   "why": [
+    "You need {required} to call; you have {equity} against everything they would shove.",
+    "Draws are the hands that can beat you, and even a flush draw is a big underdog to top set with two cards to come.",
+    "Folding top set here is a large mistake regardless of the exact range."
+   ],
+   "concepts": [
+    "pot-odds",
+    "equity",
+    "outs"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain shoves value and draws (stated range). All-in: both remaining cards will be dealt."
+   ],
+   "claims": {
+    "equity": 0.8387,
+    "required": 0.4773,
+    "outs": 7,
+    "villainCombos": 115
+   }
+  },
+  {
+   "id": "B03-overpair-vs-checkraise",
+   "title": "Overpair vs a check-raise on a wet board",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "CO",
+   "villainPos": "BB",
+   "hero": "JsJc",
+   "board": "9h8h5c",
+   "pot": 13.3,
+   "toCall": 4.2,
+   "betFacing": 6,
+   "effStack": 95.7,
+   "history": "You open the CO, BB calls. Flop: BB checks, you bet 1.8, BB check-raises to 6.",
+   "villain": {
+    "label": "Two pair or better, plus flush and straight draws at half frequency",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "two-pair-plus"
+     },
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "draws",
+      "weight": 0.5
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "Price: {required}. Your equity vs the stated range: {equity}.",
+    "Sets and two pairs crush you, but draws make up a big part of a check-raising range on 9-8-5 two-tone, and you're ahead of all of them.",
+    "With a strong overpair on a wet board, folding to one raise is usually too tight."
+   ],
+   "concepts": [
+    "pot-odds",
+    "equity",
+    "check-raise"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "BB's defend range used as an approximation of a CO-vs-BB defend range. Stated check-raise range."
+   ],
+   "claims": {
+    "equity": 0.3607,
+    "required": 0.24,
+    "villainCombos": 47.5
+   }
+  },
+  {
+   "id": "B04-river-bluffcatch-polar",
+   "title": "River bluff-catch vs a polar pot bet",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "QsJd",
+   "board": "Qh8h4c2s3d",
+   "pot": 45.4,
+   "toCall": 22.7,
+   "effStack": 88.9,
+   "history": "BTN opens, you call. Flop: you check-call 1.8. Turn: you check-call 6.8. River: you check, BTN bets pot (22.7).",
+   "villain": {
+    "label": "Polar: top pair or better for value plus 30% of no-pair hands (missed hearts) as bluffs",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "top-pair-plus"
+     },
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "air",
+      "weight": 0.3
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:2.5"
+   ],
+   "basis": "equity",
+   "why": [
+    "Facing a pot-size bet you need {required} — exactly one third.",
+    "Your top pair, jack kicker wins against bluffs and worse queens: {equity} vs the stated range.",
+    "Bluff-catching is a counting exercise: compare how often villain is bluffing (or betting worse) with the price."
+   ],
+   "concepts": [
+    "bluff-catch",
+    "pot-odds",
+    "mdf"
+   ],
+   "sources": [
+    "gtow-mdf",
+    "engine"
+   ],
+   "assumptions": [
+    "Villain's river range is an assumption; shown in the Assumptions box. No raise considered profitable here."
+   ],
+   "exploit": "If this player never bluffs rivers (common in home games), this becomes a fold — see the next spot.",
+   "claims": {
+    "equity": 0.5841,
+    "required": 0.3333,
+    "villainCombos": 156.3
+   }
+  },
+  {
+   "id": "B05-river-vs-nonbluffer",
+   "title": "Same spot vs a player who never bluffs",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "QsJd",
+   "board": "Qh8h4c2s3d",
+   "pot": 45.4,
+   "toCall": 22.7,
+   "effStack": 88.9,
+   "history": "Same line as before: BTN bets pot on the river. This time you know the player only bets the river with strong hands.",
+   "villain": {
+    "label": "Value only: two pair or better, plus AQ/KQ",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "two-pair-plus"
+     },
+     {
+      "range": "AQ, KQ"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call"
+   ],
+   "basis": "equity",
+   "why": [
+    "Same price ({required}), but against a value-only range your equity drops to {equity}.",
+    "Bluff-catchers only make money when bluffs exist. Against players who don't bluff, fold.",
+    "This is an exploitative adjustment: the math is identical, the assumed range changed."
+   ],
+   "concepts": [
+    "bluff-catch",
+    "pot-odds"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range: value only (stated read)."
+   ],
+   "claims": {
+    "equity": 0,
+    "required": 0.3333,
+    "villainCombos": 50
+   }
+  },
+  {
+   "id": "B06-nfd-vs-half-pot",
+   "title": "Nut flush draw vs a half-pot c-bet",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "Ah4h",
+   "board": "Kh9h3c",
+   "pot": 8.3,
+   "toCall": 2.8,
+   "effStack": 97.5,
+   "history": "BTN opens, you call in the BB. Flop: you check, BTN bets 2.8 (half pot).",
+   "villain": {
+    "label": "BTN betting top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "Half pot: you need {required}.",
+    "Nut flush draw: {outs} outs ({clean} clean), {next} on the turn and {byRiver} by the river if you see both cards. Equity vs the betting range: {equity}.",
+    "Easy continue. Raising as a semi-bluff is also reasonable: you have the nut draw and an overcard."
+   ],
+   "concepts": [
+    "outs",
+    "pot-odds",
+    "implied-odds"
+   ],
+   "sources": [
+    "woo",
+    "engine"
+   ],
+   "assumptions": [
+    "Villain bets value and draws (stated). Equity assumes both cards are seen."
+   ],
+   "claims": {
+    "equity": 0.4743,
+    "required": 0.2523,
+    "outs": 9,
+    "villainCombos": 117
+   }
+  },
+  {
+   "id": "B07-gutshot-vs-pot",
+   "title": "Gutshot vs a pot-size bet",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "9s7s",
+   "board": "Jd8c2h",
+   "pot": 11,
+   "toCall": 5.5,
+   "effStack": 97.5,
+   "history": "BTN opens, you call. Flop: you check, BTN bets pot (5.5).",
+   "villain": {
+    "label": "BTN betting top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A pot bet asks for {required} equity.",
+    "A gutshot has {outs} outs: {next} on the next card. Equity vs the betting range: {equity}.",
+    "Not enough — and if the turn misses you face another bet. Fold."
+   ],
+   "concepts": [
+    "outs",
+    "pot-odds"
+   ],
+   "sources": [
+    "woo",
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.18,
+    "required": 0.3333,
+    "outs": 4,
+    "villainCombos": 106
+   }
+  },
+  {
+   "id": "B08-oesd-turn-small-bet",
+   "title": "Open-ender vs a small turn bet",
+   "mode": "B",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "Td9d",
+   "board": "8s7c2hKs",
+   "pot": 12.1,
+   "toCall": 3,
+   "effStack": 95.7,
+   "history": "CO opens, you call on the BTN. Flop: CO bets 1.8, you call. Turn: CO bets 3 (⅓ pot).",
+   "villain": {
+    "label": "CO betting top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-CO",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A third-pot bet needs {required}.",
+    "{outs} straight outs: {next} on the river. Equity vs the betting range: {equity} — within a point of the price.",
+    "On pot odds alone this is break-even, so calling and folding are both fine. Implied odds (getting paid when the straight comes) and position tip it toward calling."
+   ],
+   "concepts": [
+    "outs",
+    "pot-odds",
+    "implied-odds",
+    "position"
+   ],
+   "sources": [
+    "woo",
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated. One card to come."
+   ],
+   "claims": {
+    "equity": 0.1911,
+    "required": 0.1987,
+    "outs": 8,
+    "villainCombos": 104
+   }
+  },
+  {
+   "id": "B09-overcards-vs-75",
+   "title": "Two overcards vs a ¾-pot c-bet",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "AdQc",
+   "board": "9s6h3d",
+   "pot": 9.6,
+   "toCall": 4.1,
+   "effStack": 97.5,
+   "history": "BTN opens, you call. Flop: you check, BTN bets 4.1 (¾ pot).",
+   "villain": {
+    "label": "BTN betting top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A ¾-pot bet requires {required}.",
+    "Two overcards have about six outs, some of them not clean. Equity vs a value-and-draws betting range: {equity}.",
+    "Against a range that only bets real hands, overcards are not enough; against a frequent c-bettor they can continue."
+   ],
+   "concepts": [
+    "outs",
+    "pot-odds",
+    "equity"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain bets only value and draws (no pure air): a tight assumption that makes folding correct more often."
+   ],
+   "exploit": "Many home-game players c-bet every flop. Against them, overcards like AQ can float — the stated range here is a tight bettor.",
+   "claims": {
+    "equity": 0.2009,
+    "required": 0.2993,
+    "villainCombos": 116
+   }
+  },
+  {
+   "id": "B10-set-mining-55",
+   "title": "Set mining with 55",
+   "mode": "B",
+   "street": "preflop",
+   "tableSize": 9,
+   "heroPos": "BTN",
+   "villainPos": "UTG",
+   "hero": "5s5d",
+   "board": "",
+   "pot": 4,
+   "toCall": 2.5,
+   "effStack": 100,
+   "history": "UTG opens to 2.5bb at a full table, folded to you on the button.",
+   "villain": {
+    "label": "Full-ring UTG opening range",
+    "parts": [
+     {
+      "range": "@9-rfi-UTG"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "best": "call",
+   "ok": [
+    "fold"
+   ],
+   "basis": "authored",
+   "impliedOdds": true,
+   "why": [
+    "Raw all-in equity vs UTG's range is {equity} against a price of {required} — slightly above, but preflop raw equity overstates what a small pair realizes after the flop.",
+    "The real reason to call is implied odds: you flop a set 11.8% of the time (about 7.5 : 1 against), and with 97.5bb behind a set can win a big pot from overpairs.",
+    "In position against a strong, narrow range that pays off, calling is standard at 100bb. With short stacks (little to win when you hit) it becomes a fold."
+   ],
+   "concepts": [
+    "set-mining",
+    "implied-odds",
+    "pot-odds"
+   ],
+   "sources": [
+    "wiki-potodds",
+    "sklansky",
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "100bb effective. Graded as an implied-odds call: the immediate equity alone does not justify it."
+   ],
+   "claims": {
+    "equity": 0.4281,
+    "required": 0.3846,
+    "villainCombos": 158
+   }
+  },
+  {
+   "id": "B11-two-pair-flush-turn",
+   "title": "Two pair when the flush comes in",
+   "mode": "B",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "9c8c",
+   "board": "9h8d3hKh",
+   "pot": 18.2,
+   "toCall": 9.1,
+   "effStack": 95.7,
+   "history": "BTN opens, you call. Flop: you check-call 1.8. Turn K♥ completes the flush: you check, BTN bets pot (9.1).",
+   "villain": {
+    "label": "BTN betting top pair or better (incl. flushes and sets) on the turn",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "top-pair-plus"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "Pot bet: you need {required}.",
+    "You're ahead of kings and overpairs but behind flushes and sets; you have {outs} outs to a full house. Equity vs the stated range: {equity}.",
+    "Turn decisions with one card to come are cleaner: the equity is close to the real outcome if no river bet happens."
+   ],
+   "concepts": [
+    "equity",
+    "pot-odds",
+    "outs"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated (no bluffs)."
+   ],
+   "claims": {
+    "equity": 0.4612,
+    "required": 0.3333,
+    "outs": 4,
+    "villainCombos": 129
+   }
+  },
+  {
+   "id": "B12-river-overbet-nut-blocker",
+   "title": "River overbet: top pair with the nut-flush blocker",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "AhQc",
+   "board": "Qh9h5c2h7s",
+   "pot": 36.4,
+   "toCall": 13.7,
+   "effStack": 88.9,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn: check-call 6.8. River 7♠: you check, BTN bets 13.7 (60% pot).",
+   "villain": {
+    "label": "BTN: two pair or better (incl. flushes) for value plus half of no-pair hands as bluffs",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "two-pair-plus"
+     },
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "air",
+      "weight": 0.5
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call"
+   ],
+   "basis": "equity",
+   "why": [
+    "You need {required}.",
+    "Holding the A♥ means villain can never have the nut flush, and you beat every bluff. Equity vs the stated range: {equity}.",
+    "Blockers matter most in polarized river spots like this."
+   ],
+   "concepts": [
+    "blockers",
+    "bluff-catch",
+    "pot-odds"
+   ],
+   "sources": [
+    "gtow-blockers",
+    "engine"
+   ],
+   "assumptions": [
+    "Stated polar range. Board has three hearts."
+   ],
+   "claims": {
+    "equity": 0.6304,
+    "required": 0.2735,
+    "villainCombos": 138
+   }
+  },
+  {
+   "id": "B13-weak-pair-tiny-river-bet",
+   "title": "Weak pair vs a tiny river bet",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "7h6h",
+   "board": "Kc7d3s9h2c",
+   "pot": 11.4,
+   "toCall": 2.3,
+   "effStack": 95.7,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn: check, check. River: you check, BTN bets 2.3 (¼ pot).",
+   "villain": {
+    "label": "BTN thin-value betting any pair, plus 30% of no-pair hands",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "pair-plus"
+     },
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "air",
+      "weight": 0.3
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A quarter-pot bet needs only {required} equity.",
+    "Your pair of sevens beats bluffs and some thin value: {equity} vs the stated range.",
+    "Small bets demand very wide defence; folding a pair here is far too tight."
+   ],
+   "concepts": [
+    "pot-odds",
+    "mdf",
+    "bluff-catch"
+   ],
+   "sources": [
+    "gtow-mdf",
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.3203,
+    "required": 0.1679,
+    "villainCombos": 301.6
+   }
+  },
+  {
+   "id": "B14-pair-plus-fd-vs-shove",
+   "title": "Top pair + flush draw vs a flop shove",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "KhTh",
+   "board": "Tc7h3h",
+   "pot": 103,
+   "toCall": 97.5,
+   "effStack": 97.5,
+   "history": "BTN opens, you call. Flop: you check, BTN shoves all-in for 97.5.",
+   "villain": {
+    "label": "BTN shoving top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call"
+   ],
+   "basis": "equity",
+   "why": [
+    "An overbet shove means you need {required}.",
+    "Top pair plus a flush draw is strong against value and dominates draws: {equity}.",
+    "Call — you're rarely in bad shape, and even against sets you have many outs."
+   ],
+   "concepts": [
+    "equity",
+    "pot-odds",
+    "outs"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain shove range as stated. All-in: both cards dealt."
+   ],
+   "claims": {
+    "equity": 0.6998,
+    "required": 0.4863,
+    "outs": 9,
+    "villainCombos": 119
+   }
+  },
+  {
+   "id": "B15-underpair-double-barrel",
+   "title": "Underpair facing a turn barrel",
+   "mode": "B",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "6s6d",
+   "board": "KcTd3h8s",
+   "pot": 15.9,
+   "toCall": 6.8,
+   "effStack": 95.7,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn: you check, BTN bets 6.8 (¾ pot).",
+   "villain": {
+    "label": "BTN double-barrelling top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "You need {required}.",
+    "Pocket sixes on K-T-3-8 have two outs to a set and beat only some draws: {equity}.",
+    "Fold. Calling down with underpairs against double barrels is a classic leak."
+   ],
+   "concepts": [
+    "pot-odds",
+    "equity"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.2028,
+    "required": 0.2996,
+    "villainCombos": 144
+   }
+  },
+  {
+   "id": "B16-fd-turn-pot-bet",
+   "title": "Flush draw on the turn vs a pot-size bet",
+   "mode": "B",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "QhJh",
+   "board": "Ah7h2c4s",
+   "pot": 18.2,
+   "toCall": 9.1,
+   "effStack": 95.7,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn: you check, BTN bets pot (9.1).",
+   "villain": {
+    "label": "BTN betting top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A pot bet requires {required}.",
+    "With one card to come, your {outs} outs hit {next} of the time. Equity vs the range: {equity}.",
+    "Not enough on pure pot odds. Calling needs strong implied odds (deep stacks and an opponent who pays off when the flush comes)."
+   ],
+   "concepts": [
+    "outs",
+    "pot-odds",
+    "implied-odds"
+   ],
+   "sources": [
+    "woo",
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated. No implied odds counted in the grade."
+   ],
+   "claims": {
+    "equity": 0.2503,
+    "required": 0.3333,
+    "outs": 9,
+    "villainCombos": 150
+   }
+  },
+  {
+   "id": "B17-combo-draw-vs-shove",
+   "title": "Combo draw vs a flop shove",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "JhTh",
+   "board": "9h8h2c",
+   "pot": 103,
+   "toCall": 97.5,
+   "effStack": 97.5,
+   "history": "CO opens, you call on the BTN. Flop: CO shoves all-in for 97.5.",
+   "villain": {
+    "label": "CO shoving top pair or better only",
+    "parts": [
+     {
+      "range": "@6-rfi-CO",
+      "filter": "top-pair-plus"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call"
+   ],
+   "basis": "equity",
+   "why": [
+    "You need {required}.",
+    "Open-ended straight draw + flush draw: {outs} outs, {byRiver} to hit by the river, plus overcards. Equity vs their value range: {equity}.",
+    "Huge draws are often favourites even against made hands. Call."
+   ],
+   "concepts": [
+    "outs",
+    "equity"
+   ],
+   "sources": [
+    "woo",
+    "engine"
+   ],
+   "assumptions": [
+    "Villain only shoves value (stated)."
+   ],
+   "claims": {
+    "equity": 0.5807,
+    "required": 0.4863,
+    "outs": 15,
+    "villainCombos": 60
+   }
+  },
+  {
+   "id": "B18-tptk-vs-river-checkraise",
+   "title": "TPTK vs a river check-raise",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "BB",
+   "hero": "AsKd",
+   "board": "Kh9c4d2s7h",
+   "pot": 72,
+   "toCall": 26,
+   "betFacing": 39,
+   "effStack": 74,
+   "history": "BTN open, BB call. You bet every street; river: BB checks, you bet 13 into 20, BB check-raises to 39.",
+   "villain": {
+    "label": "Low-stakes river check-raise: two pair or better only",
+    "parts": [
+     {
+      "range": "@6-vs-BB-BTN",
+      "filter": "two-pair-plus"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call"
+   ],
+   "basis": "equity",
+   "why": [
+    "You need {required}.",
+    "Against a river check-raise range of two pair or better, top pair top kicker wins {equity}.",
+    "River check-raises at low stakes are overwhelmingly value. Fold, painful as it is."
+   ],
+   "concepts": [
+    "check-raise",
+    "pot-odds",
+    "bluff-catch"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range: value only (stated)."
+   ],
+   "exploit": "This is one of the most reliable reads in live low-stakes poker.",
+   "claims": {
+    "equity": 0,
+    "required": 0.2653,
+    "villainCombos": 39
+   }
+  },
+  {
+   "id": "B19-second-pair-vs-small-cbet",
+   "title": "Second pair vs a small c-bet",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "9s8s",
+   "board": "Ad9c4h",
+   "pot": 7.3,
+   "toCall": 1.8,
+   "effStack": 97.5,
+   "history": "BTN opens, you call. Flop: you check, BTN bets 1.8 (⅓ pot).",
+   "villain": {
+    "label": "BTN c-betting small with its whole opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "A third-pot bet needs only {required}.",
+    "Against a range that bets almost everything, second pair has {equity}.",
+    "Small c-bets are designed to make you fold hands like this — don't."
+   ],
+   "concepts": [
+    "pot-odds",
+    "mdf"
+   ],
+   "sources": [
+    "gtow-mdf",
+    "engine"
+   ],
+   "assumptions": [
+    "Villain c-bets the full range (stated)."
+   ],
+   "claims": {
+    "equity": 0.5431,
+    "required": 0.1978,
+    "villainCombos": 436
+   }
+  },
+  {
+   "id": "B20-small-pair-overcard-board",
+   "title": "Small pair on a high board vs a tight bettor",
+   "mode": "B",
+   "street": "flop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "4d4c",
+   "board": "KhQs8d",
+   "pot": 8.3,
+   "toCall": 2.8,
+   "effStack": 97.5,
+   "history": "BTN opens, you call. Flop: you check, BTN bets 2.8 (½ pot).",
+   "villain": {
+    "label": "A tight BTN that bets only top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "Half pot: {required} needed.",
+    "Pocket fours on K-Q-8 have two outs to a set against a range of kings, queens and draws: {equity}.",
+    "Fold. Against a player who also bluffs a lot the math changes — but out of position, underpairs realize their equity poorly on later streets."
+   ],
+   "concepts": [
+    "pot-odds",
+    "equity",
+    "set-mining"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain bets only value and draws (stated read of a tight player)."
+   ],
+   "claims": {
+    "equity": 0.1299,
+    "required": 0.2523,
+    "villainCombos": 115
+   }
+  },
+  {
+   "id": "B21-nuts-river-raise",
+   "title": "River nuts vs a half-pot bet",
+   "mode": "B",
+   "street": "river",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "6c5c",
+   "board": "8d7s4h2cKd",
+   "pot": 13.7,
+   "toCall": 4.6,
+   "effStack": 95.7,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn: check, check. River: you check, BTN bets 4.6 (½ pot).",
+   "villain": {
+    "label": "BTN betting any pair or better",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "pair-plus"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "You flopped the nut straight (8-7-6-5-4) and it's still the nuts: {equity} vs their betting range.",
+    "Calling is fine; raising wins more from kings and two pairs that can call.",
+    "Value-raise the river when you're far ahead of the betting range."
+   ],
+   "concepts": [
+    "value-bet",
+    "equity"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.9938,
+    "required": 0.2514,
+    "villainCombos": 240
+   }
+  },
+  {
+   "id": "B22-set-vs-flush-turn",
+   "title": "Set when the flush gets there",
+   "mode": "B",
+   "street": "turn",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "5s5c",
+   "board": "5hJh2dQh",
+   "pot": 15.6,
+   "toCall": 6.5,
+   "effStack": 95.7,
+   "history": "BTN opens, you call. Flop: check-call 1.8. Turn Q♥: you check, BTN bets 6.5 (⅔ pot).",
+   "villain": {
+    "label": "BTN betting top pair or better plus draws",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN",
+      "filter": "value-and-draws"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:3"
+   ],
+   "basis": "equity",
+   "why": [
+    "You need {required}.",
+    "Bottom set is behind made flushes but has {outs} outs to a full house and is ahead of everything else: {equity}.",
+    "With that much equity, raising for value (and to charge one-card flush draws) is strongest; calling is fine; folding is far too tight."
+   ],
+   "concepts": [
+    "outs",
+    "equity",
+    "pot-odds"
+   ],
+   "sources": [
+    "engine"
+   ],
+   "assumptions": [
+    "Villain range as stated."
+   ],
+   "claims": {
+    "equity": 0.7573,
+    "required": 0.2941,
+    "outs": 10,
+    "villainCombos": 250
+   }
+  },
+  {
+   "id": "B23-bb-defend-k9o",
+   "title": "BB defense with K9o vs a button open",
+   "mode": "B",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BB",
+   "villainPos": "BTN",
+   "hero": "Kd9c",
+   "board": "",
+   "pot": 4,
+   "toCall": 1.5,
+   "effStack": 99,
+   "history": "BTN opens to 2.5bb, SB folds.",
+   "villain": {
+    "label": "BTN 6-max opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-BTN"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:10"
+   ],
+   "best": "call",
+   "ok": [
+    "raise:10",
+    "call"
+   ],
+   "basis": "chart",
+   "chart": "6-vs-BB-BTN",
+   "why": [
+    "K9o is inside the big blind's defending range (K5o+).",
+    "You only need {required} raw equity — you already have 1bb in the pot — and K9o has {equity} vs the button's range.",
+    "The source doesn't split calls and 3-bets: calling or 3-betting are both acceptable; folding is too tight."
+   ],
+   "concepts": [
+    "pot-odds",
+    "preflop-ranges",
+    "mdf"
+   ],
+   "sources": [
+    "pokerskillOpening",
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "Poker Skill BB-vs-BTN defend chart, 6-max, 100bb."
+   ],
+   "claims": {
+    "equity": 0.4821,
+    "required": 0.2727,
+    "villainCombos": 507
+   }
+  },
+  {
+   "id": "B24-btn-vs-co-ajo",
+   "title": "AJo on the button vs a cutoff open",
+   "mode": "B",
+   "street": "preflop",
+   "tableSize": 6,
+   "heroPos": "BTN",
+   "villainPos": "CO",
+   "hero": "AcJh",
+   "board": "",
+   "pot": 4,
+   "toCall": 2.5,
+   "effStack": 100,
+   "history": "CO opens to 2.5bb, folded to you on the button.",
+   "villain": {
+    "label": "CO 6-max opening range",
+    "parts": [
+     {
+      "range": "@6-rfi-CO"
+     }
+    ]
+   },
+   "options": [
+    "fold",
+    "call",
+    "raise:7.5"
+   ],
+   "best": "call",
+   "ok": [],
+   "basis": "chart",
+   "chart": "6-vs-BTN-CO",
+   "why": [
+    "In the source chart AJo is a call (AQo, AJo, KQo, KJo, QJo flat) rather than a 3-bet.",
+    "You have position for the whole hand; AJo is too strong to fold vs a cutoff range ({equity} raw equity) but often dominated by the hands that call a 3-bet.",
+    "Price: {required} raw equity needed."
+   ],
+   "concepts": [
+    "preflop-ranges",
+    "position"
+   ],
+   "sources": [
+    "pokerskillPreflop",
+    "pokercoaching"
+   ],
+   "assumptions": [
+    "Poker Skill BTN-vs-CO chart (simplified, one action per hand)."
+   ],
+   "claims": {
+    "equity": 0.5623,
+    "required": 0.3846,
+    "villainCombos": 315
+   }
+  }
+ ]
+}
