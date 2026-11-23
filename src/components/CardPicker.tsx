@@ -21,7 +21,7 @@ export function CardPicker({ value, max, used, onChange }: { value: Card[]; max:
                 disabled={used.includes(c) && !sel}
                 onClick={() => toggle(c)}
                 className={cx(
-                  'h-8 rounded text-[11px] font-bold sm:text-xs',
+                  'h-8 min-w-0 rounded px-0 text-[11px] font-bold sm:text-xs',
                   sel ? 'ring-2 ring-accent' : '',
                   dis ? 'opacity-30' : '',
                 )}
