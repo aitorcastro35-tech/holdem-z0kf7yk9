@@ -69,3 +69,21 @@ Common traps checked everywhere: one card vs two cards to come; "at least" vs "e
 | Range Explorer mobile layout | grid column overflowed to 487px at a 375px viewport → fixed (all pages now fit) |
 | Bot BB defence heuristic (no chart) | band ×1.1 of opener range → ×2.0 (BB folded 75s to a HJ open, far too tight); documented |
 | Explorer postflop defaults | continue vs raise 40% → 65% (with 40%, every hand became a profitable bluff-raise) — still an adjustable assumption |
+
+## 6. Multiway upgrade (2026-11-23)
+
+| Item | Check | Result |
+|---|---|---|
+| Action order 3–6 players, folded/all-in skipped, heads-up blind rule | `tests/multiway.test.ts` | ✅ |
+| Minimum raise, short all-in not reopening, cumulative short all-ins reopening | TDA 2026 Rules 45A / 49A; tests | ✅ (cumulative rule added after re-reading 49A) |
+| Side pots with three unequal all-ins (10 / 30 / 60 + caller → 40 / 60 / 60) | TDA Rule 23; test | ✅ |
+| Split pots and the odd chip (first winner left of the button) | TDA Rule 21; tests with 1,003-cent and 203-cent pots | ✅ |
+| Uncalled bets returned; chip conservation over 3,000 random 2–6-player hands | tests | ✅ |
+| Live pot display | During the hand only all-in amounts create side pots | 🔧 unequal bets mid-round were briefly shown as side pots → fixed (test added) |
+| 3-way equities vs PokerNews (Adams 2020) | Exact enumeration (1,370,754 boards) vs published approximate win % | ✅ all within 1.2 points (39.14/32.48/28.37; 37.68/44.60/17.72; 65.92/19.39/14.69) |
+| Multiway equity vs ranges | Monte Carlo reproduces the exact known-hands result within 1 point; equity falls as opponents are added | ✅ |
+| Bot information rule (multiway) | Changing any other player's hidden cards and the future board → identical decisions, for all styles | ✅ `tests/mwbot.test.ts` |
+| Bot speed | Max decision time in tests < 600 ms (Monte Carlo budget 250 ms) | ✅ |
+| Multiway value threshold, bluff halving, +3 pts per player behind, preflop multiway heuristics, Home-game mix, Action table ×1.35 | No published source | ⚠️ labelled heuristics (UI + SOURCES.md §10) |
+| Concept card "Multiway pots" | GTO Wizard 10 Tips for Multiway Pots (0.6 × 0.6 = 36% example is arithmetic) | ✅ |
+| Concept card "Side pots & split pots" | TDA Rules 21/23; 40 / 60 / 60 example = engine test | ✅ |

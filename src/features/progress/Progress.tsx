@@ -40,6 +40,7 @@ export default function Progress(_props: { mode?: string }) {
   const byStreet = groupBy(hands, (r) => r.street);
   const byPos = groupBy(hands, (r) => r.position);
   const byConcept = groupBy(answers, (r) => r.concepts.map((c) => conceptById(c)?.title ?? c));
+  const byPlayers = groupBy(hands, (r) => r.tags.filter((t) => t.startsWith('players-')).map((t) => `${t.slice(8)} players`));
   const mistakes = [...hands].reverse().filter((a) => a.grade === 'mistake').slice(0, 15);
   const today = answers.filter((a) => new Date(a.t).toDateString() === new Date().toDateString()).length;
 
@@ -86,6 +87,7 @@ export default function Progress(_props: { mode?: string }) {
         <AccTable title="Accuracy by mode" rows={sorted(byMode)} />
         <AccTable title="Accuracy by street" rows={sorted(byStreet)} />
         <AccTable title="Accuracy by position" rows={sorted(byPos)} />
+        <AccTable title="Accuracy by number of players (Play a hand)" rows={[...byPlayers].sort((a, b) => parseInt(a[0]) - parseInt(b[0]))} />
         <AccTable title="Weakest concepts" rows={sorted(byConcept, 3).slice(0, 8)} />
       </div>
 

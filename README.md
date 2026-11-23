@@ -5,7 +5,7 @@ A daily No-Limit Texas Hold'em decision & odds trainer for live home cash games 
 - **Your move** (Mode A) — open, c-bet, value bet or check when nobody has bet.
 - **Facing action** (Mode B) — fold / call / raise with the price, required equity and your equity vs the villain's assumed range.
 - **Explanation after every hand** — verdict (✅ Best / 🟡 Acceptable / ❌ Mistake), the numbers (equity, required equity, outs as cards, hit %, combos, EV), why, assumptions, concept links, and "Show me the math".
-- **Play a hand** — set up a heads-up hand (seats, stacks, your/its cards, board, bot style, seed) or deal a random one; play against a rule-based bot that only sees its own cards and the public action; replay, step through, branch at any decision; get a review of each decision (by the math, with hindsight equity shown separately) and export the hand history.
+- **Play a hand** — you vs 1–5 rule-based bots on a 6-max table (seats, stacks, button rotation, stacks carrying over between hands, a style per bot or the Home-game mix, preset cards/board, action table, auto-skip / auto-deal), main and side pots, all-in runouts with every player's equity; each bot only sees its own cards and the public action; replay, step through, branch at any decision; get a review of each decision (by the math, with hindsight equity shown separately) and export the hand history.
 - **Range Explorer** — enter a villain hand or range and see, for all 169 hands, the most profitable option and the EV of each (facing an all-in, facing a raise, postflop facing a bet, push-or-fold). Exact chip EV where possible (exact preflop equity table, card removal), model-based with visible assumptions otherwise.
 - **Full hand mode** — play a whole hand flop → turn → river against a villain who keeps betting or checking by a stated strategy; three (or more) decisions in a row, with an equity-by-street chart and his hand revealed at the end. Cards, the villain's hand and his choices are random every time; you can pick the kind of flop you hit.
 - **78 hand-authored classic spots** plus unlimited procedural spots: preflop (chart-graded), facing-a-bet "math spots", and c-bet / barrel / river value spots when checked to.
@@ -65,8 +65,9 @@ Progress, flashcard schedule and settings live in your browser's `localStorage`.
 ```
 src/
   engine/        cards, 7-card evaluator, equity (exact + Monte Carlo), ranges, outs, odds, probabilities, hand features,
-                 heads-up state machine (headsup.ts), exact preflop table lookup (preflopTable.ts)
-  bot/           rule-based bot, range estimation from public info, decision review
+                 heads-up and multiway state machines (headsup.ts, multiway.ts), multiway equity (multiequity.ts),
+                 exact preflop table lookup (preflopTable.ts)
+  bot/           rule-based bots (heads-up and multiway), range estimation from public info, decision reviews
   explorer/      Range Explorer EV calculations
   workers/       equity worker + Range Explorer worker (heavy work never blocks the UI)
   data/          charts.ts (cited preflop ranges), concepts.ts, refs.ts, preflopVsRandom.json, scenarios/library.json

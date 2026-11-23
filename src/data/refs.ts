@@ -25,6 +25,8 @@ export const REFS: Record<string, Ref> = Object.fromEntries(
     r('gtow-blockers', 'GTO Wizard blog — Understanding Blockers in Poker', 'https://blog.gtowizard.com/understanding-blockers-in-poker/'),
     r('gtow-equity', 'GTO Wizard blog — What is Equity in Poker?', 'https://blog.gtowizard.com/what-is-equity-in-poker/'),
     r('gtow-cbet', 'GTO Wizard blog — The Mechanics of C-Bet Sizing', 'https://blog.gtowizard.com/the-mechanics-of-c-bet-sizing/'),
+    r('tda', 'Poker TDA Rules 2026 v1.1 (Sept 21, 2026): Rule 21 odd chips, Rule 23 side pots, Rules 45A/49A minimum raise and short all-ins', 'https://www.pokertda.com/view-poker-tda-rules/', '2026-11-23'),
+    r('gtow-multiway', 'GTO Wizard blog — 10 Tips for Multiway Pots (Tombos21, Feb 2023)', 'https://blog.gtowizard.com/10-tips-multiway-pots-in-poker/', '2026-11-23'),
     r('engine', 'This app — computed by its own tested engine (see tests/)', 'https://en.wikipedia.org/wiki/Poker_probability'),
   ].map((x) => [x.id, x]),
 );

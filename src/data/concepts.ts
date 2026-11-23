@@ -180,6 +180,26 @@ export const CONCEPTS: Concept[] = [
     summary: 'When you hit but still lose (dominated kicker, low flush, idiot-end straight), you lose extra money later. Common with offsuit broadways out of position.',
     refs: ['sklansky'],
   },
+  {
+    id: 'multiway',
+    title: 'Multiway pots',
+    kind: 'theory',
+    summary:
+      'With more players in the pot you need a stronger hand to bet for value and should bluff far less: a bluff has to get through everyone, because folding frequencies multiply. The burden of defending is shared, and players still to act behind make a call worth less than closing the action.',
+    formula: 'P(everyone folds) = fold%₁ × fold%₂ × … ; a call is worth less with players behind (they can raise).',
+    example: 'If each of two opponents folds 60% of the time, both fold only 0.6 × 0.6 = 36%.',
+    pitfalls: 'Hands like top pair weak kicker lose value fast multiway (reverse implied odds: when you are called, you are often dominated).',
+    refs: ['gtow-multiway'],
+  },
+  {
+    id: 'side-pots',
+    title: 'Side pots & split pots',
+    kind: 'math',
+    summary:
+      'When a player is all-in for less, the main pot holds what everyone matched up to that amount; extra chips go into side pots that only players who put them in can win. Each pot goes to the best hand among the players eligible for it. A tie splits the pot; the odd chip goes to the first seat left of the button.',
+    example: 'All-ins of 10, 30 and 60 with a caller: main pot 4 × 10 = 40, side pot 3 × 20 = 60, side pot 2 × 30 = 60.',
+    refs: ['tda'],
+  },
 ];
 
 export const conceptById = (id: string) => CONCEPTS.find((c) => c.id === id);

@@ -87,9 +87,29 @@ These are **modelling assumptions written for this app**, documented in code and
 - **Styles:** solid / calling station / maniac are parameter presets — approximations of player types, not data-derived models.
 - **Range Explorer model inputs:** villain response to a raise (fold % or "continues with his top N%" ranked by the preflop strength order or made-hand strength on the board, plus a re-raise share after which you fold); defaults: preflop the opener continues vs a 3-bet with his top 55% (20% of that 4-bets), postflop a betting range continues vs a raise 65% (20% re-raises); equity realization 0.8 for preflop calls, 0.9 for postflop calls, 1.0 after your raise is called — rough assumptions, adjustable, not sourced numbers.
 
+## 10. Multiway Play a Hand (2–6 players)
+
+| Source | Used for |
+|---|---|
+| [Poker TDA Rules 2026, v1.1](https://www.pokertda.com/view-poker-tda-rules/) (Sept 21, 2026; checked 2026-11-23) | Engine rules: Rule 21 (odd chips — "the odd chip goes to the first seat left of the button" in board games), Rule 23 (each side pot split separately), Rule 45A (a raise must be at least the largest prior full bet/raise of the round), Rule 49A (an all-in, or cumulative short all-ins, totalling less than a full raise does not reopen betting for players who already acted). Tested in `tests/multiway.test.ts`. |
+| [GTO Wizard — 10 Tips for Multiway Pots](https://blog.gtowizard.com/10-tips-multiway-pots-in-poker/) (Tombos21, Feb 13, 2023; checked 2026-11-23) | Concept card "Multiway pots" and the direction of the bot's adjustments: pure bluffs are ineffective multiway, stronger hands are needed for value, folding frequencies multiply, playing with many players yet to act behind is less profitable. **The exact numbers below are this app's heuristics, not taken from the article.** |
+| [PokerNews — Examining Three-Way All-In Situations in Hold'em](https://www.pokernews.com/strategy/examining-three-way-all-in-situations-in-hold-em-34123.htm) (Ashley Adams, Oct 23, 2020; checked 2026-11-23) | Cross-check of 3-way equities (approximate published win %, exact cards): A♠K♠ / Q♣J♣ / 2♦2♠ "about 39 / about 32 / a little more than 28" → engine exact 39.14 / 32.48 / 28.37; A♦K♦ / Q♣Q♥ / 2♦2♠ "just under 38 / 44.5 / around 18" → 37.68 / 44.60 / 17.72; K♠K♦ / Q♣Q♥ / 2♦2♠ "nearly 66 / about 19 / about 14.5" → 65.92 / 19.39 / 14.69 (exact over all 1,370,754 boards; `tests/multiequity.test.ts`). |
+
+**Multiway bot heuristics (written for this app — labelled "heuristic" in the bot log):**
+- Equity vs all remaining opponents' estimated ranges together: Monte Carlo, 2,500 trials, 250 ms time budget per decision (shown with ≈).
+- Fair share = 1 / players in the pot. Value threshold = fair share × (1.5 + 0.15 per extra opponent): heads-up 75%, 3-way 55%, 4-way 45%, 5-way 39%, 6-way 35%.
+- Bluff, semi-bluff, stab and thin-value frequencies × 0.5 per extra opponent.
+- Facing a bet: required equity = amount to call ÷ pot after calling, plus 3 equity points per player still to act behind. The MDF guard (keep pairs/draws vs bets ≤ 40% pot) applies heads-up only.
+- Preflop where charts don't apply: iso-raise over limpers with the top 12% (to 3bb + 1 per limper); over-limp pairs and suited hands from the opening range; overcall an open after callers with the heads-up calling band ×0.7 per caller, plus pairs and suited connectors when ≥ 40bb deep; squeeze with the top max(2%, 3-bet% × (1 − 0.25 per caller)) to 3× the open + 1 open per caller (+1 out of position); cold-call a 3-bet with the top 5% (× 0.8 per caller), 4-bet the top 2%.
+- Range tracking per opponent uses `src/bot/ranges.ts` (adds "iso", "overcall", "squeeze" preflop rules).
+- **Home-game mix:** opponents take styles in the order calling station, solid, maniac, solid, solid — a guess at a typical home game, not data.
+- **Action table:** opening and calling ranges ×1.35 by combos — a training convenience, not realistic play.
+- **Review grading multiway:** facing a bet → equity vs combined ranges vs price, close within 3 points or within 6 points when players are still to act behind; no bet → bet is "best" only above the multiway value threshold, check is "best" below 0.7 × fair share (bluffing into 3+ players = mistake, 2 players = acceptable), everything else "close / depends on reads".
+
 ## 9. Unverified / not included — `TODO(verify)`
 
 - Vs-3-bet charts (4-bet / call / fold): no free, openly readable source found. Not included as charts; the bot uses a documented heuristic there and the review does not grade those decisions.
 - Full set of vs-open charts by position (and any full-ring vs-open chart): only the two Poker Skill spots above were verifiable. Full-ring spots that need a calling range use the 6-max chart, labelled as an approximation.
 - PokerCoaching's free full-ring list is for 8 players; the 9-handed mapping (§2) is this app's adaptation.
+- Multiway bot parameters (value threshold multipliers, bluff halving, +3 points per player behind, preflop multiway heuristics) are not from a published source; no free, verifiable multiway preflop charts (squeeze / overcall / limped pots) were found.
 - The "Rule of 4 minus (outs − 8)" correction is shown as a common rule of thumb only; the app always shows the exact value next to it and tests that it stays within 2.5 points for 1–15 outs. No single primary source was verified for its origin.
