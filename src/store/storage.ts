@@ -3,7 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 
 const PREFIX = 'holdem-trainer:';
-export const STORAGE_KEYS = ['settings', 'progress', 'flashcards'] as const;
+export const STORAGE_KEYS = ['settings', 'progress', 'flashcards', 'presets'] as const;
 export type StorageKey = (typeof STORAGE_KEYS)[number];
 
 const memory = new Map<string, unknown>();

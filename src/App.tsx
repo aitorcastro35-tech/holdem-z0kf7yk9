@@ -40,12 +40,16 @@ const Train = lazyPage(() => import('./features/train/Train'));
 const Flashcards = lazyPage(() => import('./features/flashcards/Flashcards'));
 const Progress = lazyPage(() => import('./features/progress/Progress'));
 const SettingsPage = lazyPage(() => import('./features/settings/SettingsPage'));
+const PlayHand = lazyPage(() => import('./features/play/PlayHand'));
+const RangeExplorer = lazyPage(() => import('./features/explorer/RangeExplorer'));
 
 const NAV: [string, string, string][] = [
   ['', 'Today', '◉'],
   ['train', 'Train', '♠'],
+  ['play', 'Play', '♣'],
+  ['explorer', 'Ranges', '▦'],
   ['flashcards', 'Cards', '▤'],
-  ['reference', 'Reference', '☰'],
+  ['reference', 'Ref', '☰'],
   ['progress', 'Stats', '↗'],
 ];
 
@@ -54,7 +58,7 @@ function NavLink({ to, label, icon, active }: { to: string; label: string; icon:
     <button
       onClick={() => go(to)}
       className={cx(
-        'flex min-h-12 flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-2 text-[11px] sm:flex-none sm:flex-row sm:gap-2 sm:px-3 sm:text-sm',
+        'flex min-h-12 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-0.5 text-[10px] sm:flex-none sm:flex-row sm:gap-2 sm:px-2.5 sm:text-sm',
         active ? 'text-accent font-semibold' : 'text-muted hover:text-fg',
       )}
       aria-current={active ? 'page' : undefined}
@@ -85,6 +89,12 @@ export default function App() {
       break;
     case 'settings':
       page = <SettingsPage />;
+      break;
+    case 'play':
+      page = <PlayHand />;
+      break;
+    case 'explorer':
+      page = <RangeExplorer />;
       break;
     default:
       page = <Home />;
