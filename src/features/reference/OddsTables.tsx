@@ -21,7 +21,7 @@ export function OddsTables() {
     ['Dealt a pocket pair', facts.pocketPair()],
     ['Dealt a specific pair (e.g. AA)', facts.specificPair()],
     ['Dealt suited (non-pair)', facts.suited()],
-    ['Pocket pair flops a set or better', facts.pairFlopsSetOrBetter()],
+    ['Pocket pair flops a set or quads (a card of its rank hits)', facts.pairFlopsSetOrBetter()],
     ['Unpaired hand pairs a hole card on the flop', facts.unpairedFlopsPair()],
     ['Suited hand flops a flush draw (exactly 2 of suit)', facts.suitedFlopsFlushDraw()],
     ['Suited hand flops a made flush', facts.suitedFlopsFlush()],

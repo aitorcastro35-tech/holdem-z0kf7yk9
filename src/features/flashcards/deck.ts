@@ -174,7 +174,7 @@ export function buildDeck(): Flashcard[] {
   const st = facts.suited();
   fact('suited', 'Chance your two hole cards are suited?', st.p, 1, `${st.hits}/${st.total} = ${f2(P(st.p))}%.`);
   const set = facts.pairFlopsSetOrBetter();
-  fact('set', 'With a pocket pair, chance to flop a set or better?', set.p, 1, `1 − C(48,3)/C(50,3) = ${f2(P(set.p))}% (≈ 7.5 : 1 against).`, 'set-mining');
+  fact('set', 'With a pocket pair, chance the flop contains at least one card of your rank (a set or quads)?', set.p, 1, `1 − C(48,3)/C(50,3) = ${f2(P(set.p))}% (≈ 7.5 : 1 against).`, 'set-mining');
   const pr = facts.unpairedFlopsPair();
   fact('pair-flop', 'Unpaired hole cards: chance the flop pairs at least one of them?', pr.p, 1.5, `1 − C(44,3)/C(50,3) = ${f2(P(pr.p))}%.`);
   const fd = facts.suitedFlopsFlushDraw();
@@ -191,7 +191,7 @@ export function buildDeck(): Flashcard[] {
   mc('25', 'You need 25% equity to call. What bet are you facing?', ['Half-pot bet', 'Pot-size bet', 'Third-pot bet', 'Two-thirds pot'], 0, 'Half pot: 0.5 / (1 + 1) = 25%.', 'pot-odds');
   mc('50mdf', 'MDF = 50%. What bet size is that?', ['Pot-size bet', 'Half-pot bet', '2× pot overbet', 'Quarter-pot bet'], 0, 'P/(P+B) = 1/(1+1) = 50%.', 'mdf');
   mc('221', '1 in 221 is the chance of…', ['Being dealt a specific pocket pair like AA', 'Being dealt any pocket pair', 'Flopping a set with a pocket pair', 'Flopping a flush with suited cards'], 0, `6/1,326 = 1/221. Any pair is 1/17 (${f2(P(pp.p))}%).`, 'combos');
-  mc('118', `${f2(P(set.p))}% is the chance of…`, ['A pocket pair flopping a set or better', 'Being dealt a pocket pair', 'Flopping a flush draw with suited cards', 'Hitting a gutshot by the river'], 0, `1 − C(48,3)/C(50,3) = ${f2(P(set.p))}%.`, 'set-mining');
+  mc('118', `${f2(P(set.p))}% is the chance of…`, ['A pocket pair flopping a set (or quads)', 'Being dealt a pocket pair', 'Flopping a flush draw with suited cards', 'Hitting a gutshot by the river'], 0, `1 − C(48,3)/C(50,3) = ${f2(P(set.p))}%.`, 'set-mining');
   mc('mdf-def', 'Which formula gives the minimum defense frequency vs a bet B into pot P?', ['P / (P + B)', 'B / (P + 2B)', 'B / (P + B)', '(P + B) / B'], 0, 'B/(P+2B) is the caller\'s required equity; B/(P+B) is bluff break-even (alpha).', 'mdf');
   mc('req-def', 'Which formula gives the equity needed to call a bet B into pot P?', ['B / (P + 2B)', 'P / (P + B)', 'B / (P + B)', 'B / P'], 0, 'You risk B to win P + B; the final pot is P + 2B.', 'pot-odds');
   cards.push(...chartCards());

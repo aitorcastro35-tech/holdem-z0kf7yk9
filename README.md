@@ -5,6 +5,8 @@ A daily No-Limit Texas Hold'em decision & odds trainer for live home cash games 
 - **Your move** (Mode A) — open, c-bet, value bet or check when nobody has bet.
 - **Facing action** (Mode B) — fold / call / raise with the price, required equity and your equity vs the villain's assumed range.
 - **Explanation after every hand** — verdict (✅ Best / 🟡 Acceptable / ❌ Mistake), the numbers (equity, required equity, outs as cards, hit %, combos, EV), why, assumptions, concept links, and "Show me the math".
+- **Play a hand** — set up a heads-up hand (seats, stacks, your/its cards, board, bot style, seed) or deal a random one; play against a rule-based bot that only sees its own cards and the public action; replay, step through, branch at any decision; get a review of each decision (by the math, with hindsight equity shown separately) and export the hand history.
+- **Range Explorer** — enter a villain hand or range and see, for all 169 hands, the most profitable option and the EV of each (facing an all-in, facing a raise, postflop facing a bet, push-or-fold). Exact chip EV where possible (exact preflop equity table, card removal), model-based with visible assumptions otherwise.
 - **Full hand mode** — play a whole hand flop → turn → river against a villain who keeps betting or checking by a stated strategy; three (or more) decisions in a row, with an equity-by-street chart and his hand revealed at the end. Cards, the villain's hand and his choices are random every time; you can pick the kind of flop you hit.
 - **78 hand-authored classic spots** plus unlimited procedural spots: preflop (chart-graded), facing-a-bet "math spots", and c-bet / barrel / river value spots when checked to.
 - **Flashcards** (216) with spaced repetition (Leitner) and a Quick 20 — odds, pot odds, combos, and a preflop-chart quiz; every answer computed by the engine or read from the cited charts.
@@ -31,6 +33,10 @@ npm run build            # type-check + production build into dist/
 npm run preview          # serve the production build locally
 npm run gen:vsrandom     # regenerate src/data/preflopVsRandom.json (169-hand equity vs random, ~1 min)
 npx tsx scripts/gen-matchups.ts           # regenerate src/data/matchups.json (exact matchups)
+# exact preflop table (≈1–2 h on 8 cores): run 8 shards in parallel, then merge
+npx tsx scripts/gen-preflop-table.ts shard 0 8   # … shard 7 8
+npx tsx scripts/gen-preflop-table.ts merge 8
+npx tsx scripts/gen-vs-random-exact.ts   # 169-hand equity vs random, exact, from the table
 npx tsx scripts/check-library.ts          # print engine numbers for every library spot
 npx tsx scripts/check-library.ts --write  # store them as "claims" (tests fail if they drift)
 ```
@@ -58,8 +64,11 @@ Progress, flashcard schedule and settings live in your browser's `localStorage`.
 
 ```
 src/
-  engine/        cards, 7-card evaluator, equity (exact + Monte Carlo), ranges, outs, odds, probabilities, hand features
-  workers/       equity Web Worker + promise client (heavy equity never blocks the UI)
+  engine/        cards, 7-card evaluator, equity (exact + Monte Carlo), ranges, outs, odds, probabilities, hand features,
+                 heads-up state machine (headsup.ts), exact preflop table lookup (preflopTable.ts)
+  bot/           rule-based bot, range estimation from public info, decision review
+  explorer/      Range Explorer EV calculations
+  workers/       equity worker + Range Explorer worker (heavy work never blocks the UI)
   data/          charts.ts (cited preflop ranges), concepts.ts, refs.ts, preflopVsRandom.json, scenarios/library.json
   scenarios/     spot types, compute (numbers + equity grading), generators, library loader, fullhand (multi-street engine)
   features/      home (daily drill), train (Mode A/B, explanation), flashcards, reference, progress (stats, leaks), settings

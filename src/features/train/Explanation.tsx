@@ -103,7 +103,7 @@ export function Explanation({ spot, numbers, chosen, grade }: { spot: Spot; numb
           )}
           {numbers.villainCombos !== undefined && <Stat label="Villain combos" value={numbers.villainCombos.toFixed(0)} sub="after blockers" />}
           {spot.street === 'preflop' && (
-            <Stat label={`${cls} vs random`} value={`≈ ${pct((vsRandom.equity as Record<string, number>)[cls])}`} sub={`rank #${vsRandom.ranking.indexOf(cls) + 1} of 169`} />
+            <Stat label={`${cls} vs random`} value={pct((vsRandom.equity as Record<string, number>)[cls])} sub={`rank #${vsRandom.ranking.indexOf(cls) + 1} of 169`} />
           )}
           {spot.board.length > 0 && <Stat label="SPR" value={numbers.spr.toFixed(1)} sub="stack ÷ pot" />}
           {chosenBet && spot.toCall === 0 && <Stat label="Your bet must work" value={pct(bluffBreakEven(spot.pot, chosenBet))} sub="as a pure bluff" />}
